@@ -17,6 +17,7 @@ const Register = () => {
       const saveUser = {
         name: data.name,
         email: data.email,
+        designation: data.designation,
       };
       fetch("http://localhost:5000/users", {
         method: "POST",
@@ -68,6 +69,19 @@ const Register = () => {
                   type="text"
                   name="name"
                   placeholder="name"
+                  className="input input-bordered"
+                  required
+                />
+              </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Designation</span>
+                </label>
+                <input
+                  {...register("designation")}
+                  type="text"
+                  name="designation"
+                  placeholder="designation"
                   className="input input-bordered"
                   required
                 />
