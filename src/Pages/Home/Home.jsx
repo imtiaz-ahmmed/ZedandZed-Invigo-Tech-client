@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 import Navbar from "../../Shared/Navbar/Navbar";
-import { BiPurchaseTag } from "react-icons/bi";
-import { GiExpense } from "react-icons/gi";
+import { MdOutlineInventory } from "react-icons/md";
 import { VscSymbolOperator } from "react-icons/vsc";
-import { TbAdjustmentsDollar } from "react-icons/tb";
+import { MdInventory } from "react-icons/md";
+import { FaHouseUser } from "react-icons/fa";
 const Home = () => {
   return (
     <div>
@@ -19,27 +19,27 @@ const Home = () => {
         </div>
 
         <div className="md:grid grid-cols-3 justify-center items-center gap-5 text-lg">
-          <div className=" p-3 bg-slate-300 hover:bg-slate-200  rounded-lg my-3 md:my-0 ">
-            <Link to="/purchase" className="text-[#4ba5ea] font-bold">
-              <div className="flex gap-3 items-center">
-                <BiPurchaseTag />
-                Add Purchase
+          <div className=" p-1 md:p-3 bg-slate-200 hover:bg-slate-300  rounded-lg my-3 md:my-0 ">
+            <Link to="/add-inventory" className="text-[#4ba5ea] font-bold">
+              <div className="flex gap-3 items-center ">
+                <MdOutlineInventory />
+                Add Inventory
               </div>
             </Link>
           </div>
-          <div className=" p-3 bg-slate-300 hover:bg-slate-200  rounded-lg">
-            <Link to="/expense" className="text-[#4ba5ea] font-bold">
+          <div className=" p-1 md:p-3 bg-slate-200 hover:bg-slate-300  rounded-lg">
+            <Link to="/manage-user" className="text-[#4ba5ea] font-bold">
               <div className="flex gap-3 items-center">
-                <GiExpense />
-                Add Expense
+                <FaHouseUser />
+                Manage Users
               </div>
             </Link>
           </div>
-          <div className=" p-3 bg-slate-300 hover:bg-slate-200  rounded-lg my-3 md:my-0">
-            <Link to="/adjustment" className="text-[#4ba5ea] font-bold">
+          <div className=" p-2 md:p-3 bg-slate-200 hover:bg-slate-300  rounded-lg my-3  md:my-0">
+            <Link to="/manage-inventory" className="text-[#4ba5ea] font-bold">
               <div className="flex gap-3 items-center">
-                <TbAdjustmentsDollar />
-                Add Adjustment
+                <MdInventory />
+                Manage Inventory
               </div>
             </Link>
           </div>

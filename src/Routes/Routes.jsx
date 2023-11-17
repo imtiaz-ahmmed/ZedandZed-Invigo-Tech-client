@@ -2,11 +2,11 @@ import { createBrowserRouter } from "react-router-dom";
 import Home from "../Pages/Home/Home";
 import Main from "../Layout/Main";
 import Login from "../Pages/Login/Login";
-import Purchase from "../Pages/Services/Purchase/Purchase";
-import Expense from "../Pages/Services/Expense/Expense";
-import Adjustment from "../Pages/Services/Adjustment/Adjustment";
 import Register from "../Pages/Register/Register";
 import PrivateRoutes from "./PrivateRoutes";
+import AddInventory from "../Pages/Services/AddInventory/AddInventory";
+import ManageUser from "../Pages/Services/ManageUser/ManageUser";
+import ManageInventory from "../Pages/Services/ManageInventory/ManageInventory";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -26,19 +26,35 @@ export const router = createBrowserRouter([
       },
       {
         path: "/register",
-        element: <Register></Register>,
+        element: (
+          <PrivateRoutes>
+            <Register></Register>
+          </PrivateRoutes>
+        ),
       },
       {
-        path: "/purchase",
-        element: <Purchase></Purchase>,
+        path: "/add-inventory",
+        element: (
+          <PrivateRoutes>
+            <AddInventory></AddInventory>
+          </PrivateRoutes>
+        ),
       },
       {
-        path: "/expense",
-        element: <Expense></Expense>,
+        path: "/manage-user",
+        element: (
+          <PrivateRoutes>
+            <ManageUser></ManageUser>
+          </PrivateRoutes>
+        ),
       },
       {
-        path: "/adjustment",
-        element: <Adjustment></Adjustment>,
+        path: "/manage-inventory",
+        element: (
+          <PrivateRoutes>
+            <ManageInventory></ManageInventory>
+          </PrivateRoutes>
+        ),
       },
     ],
   },

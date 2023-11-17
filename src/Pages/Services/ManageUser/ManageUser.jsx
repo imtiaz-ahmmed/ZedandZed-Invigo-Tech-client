@@ -1,12 +1,12 @@
 import Navbar from "../../../Shared/Navbar/Navbar";
 
-const Expense = () => {
+const ManageUser = () => {
   return (
     <div>
       <Navbar></Navbar>
-      <h2>expense</h2>
+      <p>User</p>
     </div>
   );
 };
 
-export default Expense;
+export default ManageUser;

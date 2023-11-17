@@ -24,13 +24,14 @@ const Navbar = () => {
   return (
     <div className="flex items-center justify-between gap-3 md:gap-80 mt-4 mx-3 md:mx-0">
       <img className=" w-3/4 md:w-3/6 md:h-24" src={logo} alt="" />
-      <div className="relative inline-flex items-center justify-center p-4 px-6 py-3 overflow-hidden font-medium text-indigo-600 transition duration-300 ease-out border-2 border-[#015597] rounded-full shadow-md group">
+
+      <div className="relative inline-flex items-center justify-center p-2 px-6 py-2 md:p-4  md:py-3 overflow-hidden font-medium text-indigo-600 transition duration-300 ease-out border-2 border-[#015597] rounded-full shadow-md group">
         <span className="absolute inset-0 flex items-center justify-center w-full h-full text-white duration-300 -translate-x-full bg-[#015597] group-hover:translate-x-0 ease">
-          <button onClick={handleLogOut} className="text-2xl">
+          <button onClick={handleLogOut} className="md:text-2xl">
             <CiLogout />
           </button>
         </span>
-        <span className="absolute flex items-center justify-center w-full h-full text-[#015597] transition-all duration-300 transform group-hover:translate-x-full ease">
+        <span className="absolute text-xs md:text-base flex items-center justify-center w-full h-full text-[#015597] transition-all duration-300 transform group-hover:translate-x-full ease">
           Logout
         </span>
         <span className="relative invisible">Logout</span>

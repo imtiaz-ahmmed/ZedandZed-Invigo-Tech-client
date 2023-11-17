@@ -1,12 +1,11 @@
 import Navbar from "../../../Shared/Navbar/Navbar";
 
-const Adjustment = () => {
+const AddInventory = () => {
   return (
     <div>
       <Navbar></Navbar>
-      <h2>Adjustment</h2>
     </div>
   );
 };
 
-export default Adjustment;
+export default AddInventory;

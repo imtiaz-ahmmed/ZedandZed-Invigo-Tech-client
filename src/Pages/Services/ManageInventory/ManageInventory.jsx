@@ -1,12 +1,12 @@
 import Navbar from "../../../Shared/Navbar/Navbar";
 
-const Purchase = () => {
+const ManageInventory = () => {
   return (
     <div>
       <Navbar></Navbar>
-      <h2>Purchase</h2>
+      <p>Manage Invertory</p>
     </div>
   );
 };
 
-export default Purchase;
+export default ManageInventory;
