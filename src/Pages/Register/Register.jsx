@@ -6,24 +6,43 @@ import { AuthContext } from "../../Providers/AuthProviders";
 import { Link } from "react-router-dom";
 import { FaHome } from "react-icons/fa";
 import Swal from "sweetalert2";
+
 const Register = () => {
   const { register, handleSubmit, reset } = useForm();
   const { createUser } = useContext(AuthContext);
+
   const onSubmit = (data) => {
     console.log(data);
     createUser(data.email, data.password).then((result) => {
-      const loggedUser = result.user;
-      console.log(loggedUser);
-      Swal.fire({
-        position: "top-end",
-        icon: "success",
-        title: "New User Added",
-        showConfirmButton: false,
-        timer: 1500,
-      });
+      const saveUser = {
+        name: data.name,
+        email: data.email,
+      };
+      fetch("http://localhost:5000/users", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(saveUser),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.insertedId) {
+            const loggedUser = result.user;
+            console.log(loggedUser);
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "New User Added",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            reset();
+          }
+        });
     });
-    reset();
   };
+
   return (
     <div>
       <img className="mx-auto" src={logo} alt="" />
@@ -82,7 +101,7 @@ const Register = () => {
               <div className="form-control mt-6">
                 <div className="relative inline-flex items-center justify-center p-4 px-6 py-3 overflow-hidden font-medium text-indigo-600 transition duration-300 ease-out border-2 border-[#015597] rounded-full shadow-md group">
                   <span className="absolute inset-0 flex items-center justify-center w-full h-full text-white duration-300 -translate-x-full bg-[#015597] group-hover:translate-x-0 ease">
-                    <button className="text-2xl flex items-center cursor-pointer  ">
+                    <button className="text-2xl flex items-center cursor-pointer">
                       <input type="submit" value=" " />
                       <GiArchiveRegister />
                     </button>
