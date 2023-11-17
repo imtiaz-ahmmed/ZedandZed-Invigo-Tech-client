@@ -3,6 +3,9 @@ import logo from "../../../public/c_logo.jpg";
 import { useForm } from "react-hook-form";
 import { useContext } from "react";
 import { AuthContext } from "../../Providers/AuthProviders";
+import { Link } from "react-router-dom";
+import { FaHome } from "react-icons/fa";
+import Swal from "sweetalert2";
 const Register = () => {
   const { register, handleSubmit, reset } = useForm();
   const { createUser } = useContext(AuthContext);
@@ -11,6 +14,13 @@ const Register = () => {
     createUser(data.email, data.password).then((result) => {
       const loggedUser = result.user;
       console.log(loggedUser);
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "New User Added",
+        showConfirmButton: false,
+        timer: 1500,
+      });
     });
     reset();
   };
@@ -21,7 +31,7 @@ const Register = () => {
         <div className="hero-content flex-col lg:flex-row-reverse  md:gap-16">
           <div className="md:w-1/2 text-center lg:text-left">
             <h1 className="text-3xl px-2 font-bold text-[#015597]">
-              Welcome to <br /> ZedandZed InvigoTech!
+              Add New User
             </h1>
             <p className="py-6 px-2 text-justify ">
               ZedandZed IT Services Ltd. excels with InvigoTech, an innovative
@@ -88,6 +98,12 @@ const Register = () => {
           </div>
         </div>
       </div>
+      <Link to="/">
+        <div className="text-sm flex gap-1 md:px-40 px-8  items-center py-5 text-[#015597] font-bold ">
+          <FaHome />
+          <h6>Back to Home</h6>
+        </div>
+      </Link>
     </div>
   );
 };
