@@ -4,40 +4,74 @@ import { MdOutlineInventory } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { VscDiffAdded } from "react-icons/vsc";
+import { useState } from "react";
+import Swal from "sweetalert2";
 const AddInventory = () => {
   const { register, handleSubmit, reset } = useForm();
-  const onSubmit = (data) => {
-    console.log(data);
-    // createUser(data.email, data.password).then((result) => {
-    //   const saveUser = {
-    //     name: data.name,
-    //     email: data.email,
-    //     designation: data.designation,
-    //   };
-    //   fetch("http://localhost:5000/users", {
-    //     method: "POST",
-    //     headers: {
-    //       "content-type": "application/json",
-    //     },
-    //     body: JSON.stringify(saveUser),
-    //   })
-    //     .then((res) => res.json())
-    //     .then((data) => {
-    //       if (data.insertedId) {
-    //         const loggedUser = result.user;
-    //         console.log(loggedUser);
-    //         Swal.fire({
-    //           position: "top-end",
-    //           icon: "success",
-    //           title: "New User Added",
-    //           showConfirmButton: false,
-    //           timer: 1500,
-    //         });
-    //         reset();
-    //       }
-    //     });
-    // });
+  // const [imagePreview, setImagePreview] = useState("");
+  // Function to convert image file to Base64
+  const convertImageToBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+
+      reader.onload = () => {
+        resolve(reader.result.split(",")[1]); // Extract the Base64 data
+      };
+
+      reader.onerror = (error) => {
+        reject(error);
+      };
+    });
   };
+  const onSubmit = async (data) => {
+    // Convert the image file to Base64
+    const imageInput = document.querySelector('input[name="add-image"]');
+    const imageFile = imageInput.files[0];
+
+    if (imageFile) {
+      const base64Image = await convertImageToBase64(imageFile);
+      data.image = base64Image;
+    }
+
+    // Log the full form data
+    console.log(data);
+
+    const saveInventory = {
+      itemName: data.itemName,
+      itemCode: data.itemCode,
+      itemSerialNumber: data.itemSerialNumber,
+      uniqueId: data.uniqueId,
+      price: data.price,
+      quantity: data.quantity,
+      date: data.date,
+      description: data.description,
+      location: data.location,
+      remarks: data.remarks,
+      image: data.image,
+      photoURL: data.photoURL,
+    };
+    console.log(saveInventory);
+    fetch("http://localhost:5000/add-inventory", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(saveInventory),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Inventory Item Added",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        reset();
+      });
+  };
+
   return (
     <div>
       <Navbar></Navbar>
@@ -51,14 +85,14 @@ const AddInventory = () => {
       <div className="card  w-full  shadow-2xl bg-base-100">
         <form onSubmit={handleSubmit(onSubmit)} className="card-body ">
           <div className="grid md:grid-cols-2 gap-5">
-            <div className="form-control">
+            <div className="form-control ">
               <label className="label">
                 <span className="label-text">Item Name</span>
               </label>
               <input
-                {...register("item-name")}
+                {...register("itemName")}
                 type="text"
-                name="item-name"
+                name="itemName"
                 placeholder="item name"
                 className="input input-bordered"
                 required
@@ -69,9 +103,9 @@ const AddInventory = () => {
                 <span className="label-text">Item Code</span>
               </label>
               <input
-                {...register("item-code")}
+                {...register("itemCode")}
                 type="text"
-                name="item-code"
+                name="itemCode"
                 placeholder="item code"
                 className="input input-bordered"
                 required
@@ -82,9 +116,9 @@ const AddInventory = () => {
                 <span className="label-text">Item Serial Number</span>
               </label>
               <input
-                {...register("item-serial-number")}
+                {...register("itemSerialNumber")}
                 type="text"
-                name="item-serial-number"
+                name="itemSerialNumber"
                 placeholder="item serial number"
                 className="input input-bordered"
                 required
@@ -95,9 +129,9 @@ const AddInventory = () => {
                 <span className="label-text">Unique ID</span>
               </label>
               <input
-                {...register("unique-id")}
+                {...register("uniqueId")}
                 type="text"
-                name="unique-id"
+                name="uniqueId"
                 placeholder="unique id"
                 className="input input-bordered"
                 required
@@ -105,13 +139,13 @@ const AddInventory = () => {
             </div>
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Description</span>
+                <span className="label-text">Price</span>
               </label>
               <input
-                {...register("description")}
-                type="text"
-                name="description"
-                placeholder="description"
+                {...register("price")}
+                type="number"
+                name="price"
+                placeholder="price"
                 className="input input-bordered"
                 required
               />
@@ -131,6 +165,32 @@ const AddInventory = () => {
             </div>
             <div className="form-control">
               <label className="label">
+                <span className="label-text">Date</span>
+              </label>
+              <input
+                {...register("date")}
+                type="date"
+                name="date"
+                placeholder="date"
+                className="input input-bordered"
+                required
+              />
+            </div>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Description</span>
+              </label>
+              <input
+                {...register("description")}
+                type="text"
+                name="description"
+                placeholder="description"
+                className="input input-bordered"
+                required
+              />
+            </div>
+            <div className="form-control">
+              <label className="label">
                 <span className="label-text">Location</span>
               </label>
               <input
@@ -144,31 +204,44 @@ const AddInventory = () => {
             </div>
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Date</span>
+                <span className="label-text">Remarks</span>
               </label>
               <input
-                {...register("date")}
-                type="date"
-                name="date"
-                placeholder="date"
+                {...register("remarks")}
+                type="text"
+                name="remarks"
+                placeholder="remarks"
                 className="input input-bordered"
-                required
+              />
+            </div>
+
+            <div className="form-control ">
+              <label className="label">
+                <span className="label-text">Add Image</span>
+              </label>
+              <input
+                {...register("add-image")}
+                type="file"
+                name="add-image"
+                placeholder="add image"
+                className="input file-input  w-full  input-bordered py-2"
+              />
+            </div>
+
+            <div className="form-control ">
+              <label className="label">
+                <span className="label-text">Photo URL</span>
+              </label>
+              <input
+                {...register("photoURL")}
+                type="url"
+                name="photoURL"
+                placeholder="photo url"
+                className="input input-bordered"
               />
             </div>
           </div>
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text">Add Image</span>
-            </label>
-            <input
-              {...register("add-image")}
-              type="image"
-              name="add-image"
-              placeholder="add image"
-              className="input input-bordered py-2"
-              required
-            />
-          </div>
+
           <div className="form-control mt-6">
             <div className="relative inline-flex items-center justify-center p-4 px-6 py-3 overflow-hidden font-medium text-indigo-600 transition duration-300 ease-out border-2 border-[#015597] rounded-full shadow-md group md:w-1/4 md:mx-auto">
               <span className="absolute inset-0 flex items-center justify-center w-full h-full text-white duration-300 -translate-x-full bg-[#015597] group-hover:translate-x-0 ease">
