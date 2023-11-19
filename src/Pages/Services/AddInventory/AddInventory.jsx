@@ -217,26 +217,26 @@ const AddInventory = () => {
 
             <div className="form-control ">
               <label className="label">
-                <span className="label-text">Add Image</span>
+                <span className="label-text">Add Bill Image</span>
               </label>
               <input
                 {...register("add-image")}
                 type="file"
                 name="add-image"
-                placeholder="add image"
+                placeholder="add bill image"
                 className="input file-input  w-full  input-bordered py-2"
               />
             </div>
 
             <div className="form-control ">
               <label className="label">
-                <span className="label-text">Photo URL</span>
+                <span className="label-text">Item Photo URL</span>
               </label>
               <input
                 {...register("photoURL")}
                 type="url"
                 name="photoURL"
-                placeholder="photo url"
+                placeholder="item photo url"
                 className="input input-bordered"
               />
             </div>
