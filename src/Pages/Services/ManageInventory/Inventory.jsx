@@ -15,6 +15,7 @@ const Inventory = ({ inventory }) => {
     image,
     photoURL,
   } = inventory;
+  const perUnitPrice = parseFloat(price) / parseInt(quantity);
 
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -128,6 +129,12 @@ const Inventory = ({ inventory }) => {
                       Item Price :
                     </span>{" "}
                     {price}
+                  </p>
+                  <p className="text-sm ">
+                    <span className="text-[#015597] font-bold md:my-6 ">
+                      Per Unit Price :
+                    </span>{" "}
+                    {perUnitPrice}
                   </p>
                   <p className="text-sm ">
                     <span className="text-[#015597] font-bold md:my-6 ">
