@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { VscDiffAdded } from "react-icons/vsc";
 import { useState } from "react";
 import Swal from "sweetalert2";
+
 const AddInventory = () => {
   const { register, handleSubmit, reset } = useForm();
   // const [imagePreview, setImagePreview] = useState("");
