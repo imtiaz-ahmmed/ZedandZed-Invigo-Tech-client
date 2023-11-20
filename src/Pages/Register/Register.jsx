@@ -6,6 +6,7 @@ import { AuthContext } from "../../Providers/AuthProviders";
 import { Link } from "react-router-dom";
 import { FaHome } from "react-icons/fa";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet";
 
 const Register = () => {
   const { register, handleSubmit, reset } = useForm();
@@ -46,6 +47,9 @@ const Register = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>ZnZ || Registration</title>
+      </Helmet>
       <img className="mx-auto" src={logo} alt="" />
       <div className="hero mt-4 ">
         <div className="hero-content flex-col lg:flex-row-reverse  md:gap-16">

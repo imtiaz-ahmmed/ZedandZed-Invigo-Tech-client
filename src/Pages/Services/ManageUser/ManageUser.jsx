@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { LiaUsersSolid } from "react-icons/lia";
 import User from "./User";
 import { FaHome } from "react-icons/fa";
+import { Helmet } from "react-helmet";
 const ManageUser = () => {
   const [allUsers, setAllUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -18,6 +19,9 @@ const ManageUser = () => {
   }, []);
   return (
     <div>
+      <Helmet>
+        <title>ZnZ || Manage Users</title>
+      </Helmet>
       <Navbar></Navbar>
       <hr />
       <div className="md:grid grid-cols-2 justify-center items-center gap-5 text-lg my-5 px-5">

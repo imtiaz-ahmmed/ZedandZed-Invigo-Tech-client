@@ -4,9 +4,13 @@ import { MdOutlineInventory } from "react-icons/md";
 import { VscSymbolOperator } from "react-icons/vsc";
 import { MdInventory } from "react-icons/md";
 import { FaHouseUser } from "react-icons/fa";
+import { Helmet } from "react-helmet";
 const Home = () => {
   return (
     <div>
+      <Helmet>
+        <title>ZnZ || Home</title>
+      </Helmet>
       <Navbar></Navbar>
       <section className="px-5 md:px-0">
         <div className="flex items-center pt-5 ">

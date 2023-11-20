@@ -4,6 +4,7 @@ import { MdInventory } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { FaHome } from "react-icons/fa";
 import Inventory from "./Inventory";
+import { Helmet } from "react-helmet";
 const ManageInventory = () => {
   const [allInventory, setAllInventory] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -17,6 +18,9 @@ const ManageInventory = () => {
   }, []);
   return (
     <div>
+      <Helmet>
+        <title>ZnZ || Manage Inventory</title>
+      </Helmet>
       <Navbar></Navbar>
       <hr />
       <div className="text-[#3070a2] font-bold text-3xl  py-5 flex items-center gap-2 justify-center">

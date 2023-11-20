@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { VscDiffAdded } from "react-icons/vsc";
 import { useState } from "react";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet";
 
 const AddInventory = () => {
   const { register, handleSubmit, reset } = useForm();
@@ -75,6 +76,9 @@ const AddInventory = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>ZnZ || Add Inventory</title>
+      </Helmet>
       <Navbar></Navbar>
       <hr />
       <div className="text-[#3070a2] font-bold text-3xl  py-5 flex items-center gap-2 justify-center">

@@ -4,6 +4,7 @@ import logo from "../../../public/c_logo.jpg";
 import { useContext } from "react";
 import { AuthContext } from "../../Providers/AuthProviders";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet";
 const Login = () => {
   const { signIn } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -29,6 +30,9 @@ const Login = () => {
   };
   return (
     <div>
+      <Helmet>
+        <title>ZnZ || Login</title>
+      </Helmet>
       <img className="mx-auto" src={logo} alt="" />
       <div className="hero mt-5 ">
         <div className="hero-content flex-col lg:flex-row-reverse  md:gap-16">
