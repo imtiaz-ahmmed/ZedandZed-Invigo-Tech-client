@@ -5,6 +5,7 @@ import { VscSymbolOperator } from "react-icons/vsc";
 import { MdInventory } from "react-icons/md";
 import { FaHouseUser } from "react-icons/fa";
 import { Helmet } from "react-helmet";
+import Footer from "../../Shared/Footer/Footer";
 const Home = () => {
   return (
     <div>
@@ -48,6 +49,7 @@ const Home = () => {
             </Link>
           </div>
         </div>
+        <Footer></Footer>
       </section>
     </div>
   );
