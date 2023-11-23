@@ -3,14 +3,16 @@ import { CiLogin } from "react-icons/ci";
 import { RiEyeCloseFill } from "react-icons/ri";
 import { FaEye } from "react-icons/fa";
 import logo from "../../../public/c_logo.jpg";
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { AuthContext } from "../../Providers/AuthProviders";
 import Swal from "sweetalert2";
 import { Helmet } from "react-helmet";
+
 const Login = () => {
-  const { signIn } = useContext(AuthContext);
+  const { signIn, resetPassword } = useContext(AuthContext);
   const navigate = useNavigate();
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const emailRef = useRef();
   const handleLogin = (event) => {
     event.preventDefault();
     const form = event.target;
@@ -30,11 +32,42 @@ const Login = () => {
       navigate("/");
     });
   };
+
+  const handleResetPassword = (event) => {
+    const email = emailRef.current.value;
+    if (!email) {
+      Swal.fire({
+        icon: "warning",
+        title: "Oops!",
+        text: "Please enter your email address to reset your password.",
+      });
+      return;
+    }
+
+    resetPassword(email)
+      .then(() => {
+        Swal.fire({
+          icon: "success",
+          title: "Password Reset Email Sent!",
+          text: `An email has been sent to ${email} with instructions to reset your password. Please check your inbox.`,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+        Swal.fire({
+          icon: "error",
+          title: "Oops!",
+          text: "An error occurred while processing your request. Please try again later.",
+        });
+      });
+  };
+
   return (
     <div>
       <Helmet>
         <title>ZnZ || Login</title>
       </Helmet>
+
       <img className="mx-auto" src={logo} alt="" />
       <div className="hero mt-5 ">
         <div className="hero-content flex-col lg:flex-row-reverse  md:gap-16">
@@ -54,6 +87,7 @@ const Login = () => {
                   <span className="label-text">Email</span>
                 </label>
                 <input
+                  ref={emailRef}
                   type="email"
                   name="email"
                   placeholder="email"
@@ -79,11 +113,14 @@ const Login = () => {
                   {passwordVisible ? <RiEyeCloseFill /> : <FaEye />}
                 </span>
 
-                <label className="label">
-                  <span className="label-text-alt link link-hover">
+                <span className="label">
+                  <button
+                    onClick={handleResetPassword}
+                    className="label-text-alt link link-hover"
+                  >
                     Forgot password?
-                  </span>
-                </label>
+                  </button>
+                </span>
               </div>
               <div className="form-control mt-6">
                 <div className="relative inline-flex items-center justify-center p-4 px-6 py-3 overflow-hidden font-medium text-indigo-600 transition duration-300 ease-out border-2 border-[#015597] rounded-full shadow-md group">
