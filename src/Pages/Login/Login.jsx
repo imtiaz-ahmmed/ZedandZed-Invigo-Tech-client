@@ -1,14 +1,16 @@
 import { Link, useNavigate } from "react-router-dom";
 import { CiLogin } from "react-icons/ci";
+import { RiEyeCloseFill } from "react-icons/ri";
+import { FaEye } from "react-icons/fa";
 import logo from "../../../public/c_logo.jpg";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../Providers/AuthProviders";
 import Swal from "sweetalert2";
 import { Helmet } from "react-helmet";
 const Login = () => {
   const { signIn } = useContext(AuthContext);
   const navigate = useNavigate();
-
+  const [passwordVisible, setPasswordVisible] = useState(false);
   const handleLogin = (event) => {
     event.preventDefault();
     const form = event.target;
@@ -59,30 +61,34 @@ const Login = () => {
                   required
                 />
               </div>
-              <div className="form-control">
+              <div className="form-control relative">
                 <label className="label">
                   <span className="label-text">Password</span>
                 </label>
                 <input
-                  type="password"
+                  type={passwordVisible ? "text" : "password"}
                   name="password"
                   placeholder="password"
                   className="input input-bordered"
                   required
                 />
+                <span
+                  className="absolute mt-14 ms-52 md:ms-72 cursor-pointer"
+                  onClick={() => setPasswordVisible(!passwordVisible)}
+                >
+                  {passwordVisible ? <RiEyeCloseFill /> : <FaEye />}
+                </span>
+
                 <label className="label">
-                  <Link
-                    to="/register"
-                    className="label-text-alt link link-hover"
-                  >
-                    Forgot password? Register
-                  </Link>
+                  <span className="label-text-alt link link-hover">
+                    Forgot password?
+                  </span>
                 </label>
               </div>
               <div className="form-control mt-6">
                 <div className="relative inline-flex items-center justify-center p-4 px-6 py-3 overflow-hidden font-medium text-indigo-600 transition duration-300 ease-out border-2 border-[#015597] rounded-full shadow-md group">
                   <span className="absolute inset-0 flex items-center justify-center  h-full text-white duration-300 -translate-x-full bg-[#015597] group-hover:translate-x-0 ease">
-                    <button className="text-2xl flex items-center cursor-pointer  ">
+                    <button className="text-2xl flex items-center cursor-pointer">
                       <input type="submit" value=" " />
                       <CiLogin />
                     </button>

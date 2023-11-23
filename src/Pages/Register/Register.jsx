@@ -1,16 +1,18 @@
 import { GiArchiveRegister } from "react-icons/gi";
 import logo from "../../../public/c_logo.jpg";
 import { useForm } from "react-hook-form";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../Providers/AuthProviders";
 import { Link } from "react-router-dom";
 import { FaHome } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { Helmet } from "react-helmet";
-
+import { RiEyeCloseFill } from "react-icons/ri";
+import { FaEye } from "react-icons/fa";
 const Register = () => {
   const { register, handleSubmit, reset } = useForm();
   const { createUser } = useContext(AuthContext);
+  const [passwordVisible, setPasswordVisible] = useState(false);
 
   const onSubmit = (data) => {
     console.log(data);
@@ -103,18 +105,24 @@ const Register = () => {
                   required
                 />
               </div>
-              <div className="form-control">
+              <div className="form-control relative">
                 <label className="label">
                   <span className="label-text">Password</span>
                 </label>
                 <input
                   {...register("password")}
-                  type="password"
+                  type={passwordVisible ? "text" : "password"}
                   name="password"
                   placeholder="password"
                   className="input input-bordered"
                   required
                 />
+                <span
+                  className="absolute mt-14 ms-52 md:ms-72 cursor-pointer"
+                  onClick={() => setPasswordVisible(!passwordVisible)}
+                >
+                  {passwordVisible ? <RiEyeCloseFill /> : <FaEye />}
+                </span>
               </div>
               <div className="form-control mt-6">
                 <div className="relative inline-flex items-center justify-center p-4 px-6 py-3 overflow-hidden font-medium text-indigo-600 transition duration-300 ease-out border-2 border-[#015597] rounded-full shadow-md group">
