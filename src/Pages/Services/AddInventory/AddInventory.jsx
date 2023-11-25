@@ -10,15 +10,15 @@ import { Helmet } from "react-helmet";
 
 const AddInventory = () => {
   const { register, handleSubmit, reset } = useForm();
-  // const [imagePreview, setImagePreview] = useState("");
-  // Function to convert image file to Base64
+  const [category, setCategory] = useState("");
+
   const convertImageToBase64 = (file) => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.readAsDataURL(file);
 
       reader.onload = () => {
-        resolve(reader.result.split(",")[1]); // Extract the Base64 data
+        resolve(reader.result.split(",")[1]);
       };
 
       reader.onerror = (error) => {
@@ -26,8 +26,8 @@ const AddInventory = () => {
       };
     });
   };
+
   const onSubmit = async (data) => {
-    // Convert the image file to Base64
     const imageInput = document.querySelector('input[name="add-image"]');
     const imageFile = imageInput.files[0];
 
@@ -36,9 +36,6 @@ const AddInventory = () => {
       data.image = base64Image;
     }
 
-    // Log the full form data
-    console.log(data);
-
     const saveInventory = {
       itemName: data.itemName,
       itemCode: data.itemCode,
@@ -46,14 +43,20 @@ const AddInventory = () => {
       uniqueId: data.uniqueId,
       price: data.price,
       quantity: data.quantity,
-      date: data.date,
+      purchaseDate: data.purchaseDate,
+      warrantyDate: data.warrantyDate,
       description: data.description,
       location: data.location,
       remarks: data.remarks,
       image: data.image,
       photoURL: data.photoURL,
+      category: category,
+      employeeName: data.employeeName,
+      employeeId: data.employeeId,
     };
+
     console.log(saveInventory);
+
     fetch("http://localhost:5000/add-inventory", {
       method: "POST",
       headers: {
@@ -81,18 +84,19 @@ const AddInventory = () => {
       </Helmet>
       <Navbar></Navbar>
       <hr />
-      <div className="text-[#3070a2] font-bold text-3xl  py-5 flex items-center gap-2 justify-center">
+      <div className="text-[#3070a2] font-bold text-3xl py-5 flex items-center gap-2 justify-center">
         <MdOutlineInventory />
         <h4> Add Inventory</h4>
       </div>
       <hr />
-      {/* Main Content */}
-      <div className="card  w-full  shadow-2xl bg-base-100">
+      <div className="card w-full shadow-2xl bg-base-100">
         <form onSubmit={handleSubmit(onSubmit)} className="card-body ">
           <div className="grid md:grid-cols-2 gap-5">
             <div className="form-control ">
               <label className="label">
-                <span className="label-text">Item Name</span>
+                <span className="label-text">
+                  Item Name <sup className="md:text-lg text-red-500">*</sup>
+                </span>
               </label>
               <input
                 {...register("itemName")}
@@ -105,7 +109,9 @@ const AddInventory = () => {
             </div>
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Item Code</span>
+                <span className="label-text">
+                  Item Code <sup className="md:text-lg text-red-500">*</sup>
+                </span>
               </label>
               <input
                 {...register("itemCode")}
@@ -118,7 +124,10 @@ const AddInventory = () => {
             </div>
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Item Serial Number</span>
+                <span className="label-text">
+                  Item Serial Number{" "}
+                  <sup className="md:text-lg text-red-500">*</sup>
+                </span>
               </label>
               <input
                 {...register("itemSerialNumber")}
@@ -131,7 +140,9 @@ const AddInventory = () => {
             </div>
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Unique ID</span>
+                <span className="label-text">
+                  Unique ID <sup className="md:text-lg text-red-500">*</sup>
+                </span>
               </label>
               <input
                 {...register("uniqueId")}
@@ -144,7 +155,9 @@ const AddInventory = () => {
             </div>
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Price</span>
+                <span className="label-text">
+                  Price <sup className="md:text-lg text-red-500">*</sup>
+                </span>
               </label>
               <input
                 {...register("price")}
@@ -157,7 +170,9 @@ const AddInventory = () => {
             </div>
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Quantity</span>
+                <span className="label-text">
+                  Quantity <sup className="md:text-lg text-red-500">*</sup>
+                </span>
               </label>
               <input
                 {...register("quantity")}
@@ -170,20 +185,74 @@ const AddInventory = () => {
             </div>
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Date</span>
+                <span className="label-text">
+                  Purchase Date <sup className="md:text-lg text-red-500">*</sup>
+                </span>
               </label>
               <input
-                {...register("date")}
-                type="date"
-                name="date"
-                placeholder="date"
+                {...register("purchaseDate")}
+                type="Date"
+                name="purchaseDate"
+                placeholder="purchase date"
                 className="input input-bordered"
                 required
               />
             </div>
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Description</span>
+                <span className="label-text">
+                  Warranty Ends <sup className="md:text-lg text-red-500"></sup>
+                </span>
+              </label>
+              <input
+                {...register("warrantyDate")}
+                type="Date"
+                name="warrantyDate"
+                placeholder="warranty date"
+                className="input input-bordered"
+                required
+              />
+            </div>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">
+                  Category <sup className="md:text-lg text-red-500">*</sup>
+                </span>
+              </label>
+              <select
+                {...register("category")}
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+                className="select select-bordered"
+                required
+              >
+                <option value="" disabled>
+                  Select a category
+                </option>
+                <option value="Hardware">Hardware</option>
+                <option value="Software">Software</option>
+                <option value="Licenses">Licenses</option>
+                <option value="DataAndDatabases">Data and Databases</option>
+                <option value="Peripherals">Peripherals</option>
+                <option value="OfficeEquipment">Office Equipment</option>
+                <option value="ItAccessories">IT Accessories</option>
+                <option value="Documentation">Documentation</option>
+                <option value="Licenses">Licenses</option>
+                <option value="WarrantyAndSupportContracts">
+                  Warranty and Support Contracts
+                </option>
+                <option value="DigitalAssets">Digital Assets</option>
+                <option value="EmployeeDevices">Employee Devices</option>
+                <option value="CloudResources">Cloud Resources</option>
+                <option value="SecurityEquipment">Security Equipment</option>
+                <option value="Others">Others</option>
+              </select>
+            </div>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">
+                  Description <sup className="md:text-lg text-red-500">*</sup>
+                </span>
               </label>
               <input
                 {...register("description")}
@@ -196,7 +265,9 @@ const AddInventory = () => {
             </div>
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Location</span>
+                <span className="label-text">
+                  Location <sup className="md:text-lg text-red-500">*</sup>
+                </span>
               </label>
               <input
                 {...register("location")}
@@ -209,7 +280,9 @@ const AddInventory = () => {
             </div>
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Remarks</span>
+                <span className="label-text">
+                  Remarks<sup className="md:text-lg text-red-500"></sup>
+                </span>
               </label>
               <input
                 {...register("remarks")}
@@ -222,20 +295,24 @@ const AddInventory = () => {
 
             <div className="form-control ">
               <label className="label">
-                <span className="label-text">Add Bill Image</span>
+                <span className="label-text">
+                  Add Bill Image <sup className="md:text-lg text-red-500"></sup>
+                </span>
               </label>
               <input
                 {...register("add-image")}
                 type="file"
                 name="add-image"
                 placeholder="add bill image"
-                className="input file-input  w-full  input-bordered py-2"
+                className="input file-input w-full input-bordered py-2"
               />
             </div>
 
             <div className="form-control ">
               <label className="label">
-                <span className="label-text">Item Photo URL</span>
+                <span className="label-text">
+                  Item Photo URL <sup className="md:text-lg text-red-500"></sup>
+                </span>
               </label>
               <input
                 {...register("photoURL")}
@@ -245,30 +322,62 @@ const AddInventory = () => {
                 className="input input-bordered"
               />
             </div>
+
+            <div className="form-control ">
+              <label className="label">
+                <span className="label-text">
+                  Employee Name <sup className="md:text-lg text-red-500">*</sup>
+                </span>
+              </label>
+              <input
+                {...register("employeeName")}
+                type="text"
+                name="employeeName"
+                placeholder="employee name"
+                className="input input-bordered"
+                required
+              />
+            </div>
+            <div className="form-control ">
+              <label className="label">
+                <span className="label-text">
+                  Employee ID <sup className="md:text-lg text-red-500">*</sup>
+                </span>
+              </label>
+              <input
+                {...register("employeeId")}
+                type="text"
+                name="employeeId"
+                placeholder="employee id"
+                className="input input-bordered"
+                required
+              />
+            </div>
           </div>
 
           <div className="form-control mt-6">
-            <div className="relative inline-flex items-center justify-center p-4 px-6 py-3 overflow-hidden font-medium text-indigo-600 transition duration-300 ease-out border-2 border-[#015597] rounded-full shadow-md group md:w-1/4 md:mx-auto">
+            <button className="relative inline-flex items-center justify-center p-4 px-6 py-3 overflow-hidden font-medium text-indigo-600 transition duration-300 ease-out border-2 border-[#015597] rounded-full shadow-md group md:w-1/4 md:mx-auto">
               <span className="absolute inset-0 flex items-center justify-center w-full h-full text-white duration-300 -translate-x-full bg-[#015597] group-hover:translate-x-0 ease">
-                <button className="text-2xl flex items-center cursor-pointer">
+                <span className="text-2xl flex items-center cursor-pointer">
                   <input type="submit" value=" " />
                   <VscDiffAdded />
-                </button>
+                </span>
               </span>
 
               <span className="absolute flex items-center justify-center w-full h-full text-[#015597] transition-all duration-300 transform group-hover:translate-x-full ease">
                 Add Inventory
               </span>
               <span className="relative invisible">Add Inventory</span>
-            </div>
+            </button>
           </div>
         </form>
+        <span className="text-sm px-8 pb-2 font-bold italic text-red-500">
+          * This field is Required
+        </span>
       </div>
 
-      {/* Buttom Navigation */}
-
       <Link to="/">
-        <div className="text-sm flex gap-1 md:px-40 px-8   items-center py-5 text-[#015597] font-bold ">
+        <div className="text-sm flex gap-1 md:px-40 px-8 items-center py-5 text-[#015597] font-bold ">
           <FaHome />
           <h6 className="border-b-2">Back to Home</h6>
         </div>

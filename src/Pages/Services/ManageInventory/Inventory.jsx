@@ -8,14 +8,23 @@ const Inventory = ({ inventory }) => {
     uniqueId,
     price,
     quantity,
-    date,
+    purchaseDate,
+    warrantyDate,
     description,
     location,
     remarks,
     image,
     photoURL,
+    category,
+    employeeName,
+    employeeId,
   } = inventory;
   const perUnitPrice = parseFloat(price) / parseInt(quantity);
+  const purchaseDateObj = new Date(inventory.purchaseDate);
+  const warrantyDateObj = new Date(inventory.warrantyDate);
+  const remainingDays = Math.floor(
+    (warrantyDateObj - purchaseDateObj) / (24 * 60 * 60 * 1000)
+  );
 
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -118,6 +127,14 @@ const Inventory = ({ inventory }) => {
                     </span>{" "}
                     {description}
                   </p>
+                  {category && (
+                    <p className="text-sm ">
+                      <span className="text-[#015597] font-bold md:my-6 ">
+                        Category :
+                      </span>{" "}
+                      {category}
+                    </p>
+                  )}
                   <p className="text-sm ">
                     <span className="text-[#015597] font-bold md:my-6 ">
                       Quantity :
@@ -128,12 +145,14 @@ const Inventory = ({ inventory }) => {
                     <span className="text-[#015597] font-bold md:my-6 ">
                       Item Price :
                     </span>{" "}
+                    <span className="md:text-lg">&#2547; </span>
                     {price}
                   </p>
                   <p className="text-sm ">
                     <span className="text-[#015597] font-bold md:my-6 ">
                       Per Unit Price :
                     </span>{" "}
+                    <span className="md:text-lg">&#2547; </span>
                     {perUnitPrice}
                   </p>
                   <p className="text-sm ">
@@ -150,10 +169,26 @@ const Inventory = ({ inventory }) => {
                   </p>
                   <p className="text-sm ">
                     <span className="text-[#015597] font-bold md:my-6 ">
-                      Date :
+                      Purchase Date :
                     </span>{" "}
-                    {date}
+                    {purchaseDate}
                   </p>
+                  {warrantyDate && (
+                    <p className="text-sm ">
+                      <span className="text-[#015597] font-bold md:my-6 ">
+                        Purchase Date :
+                      </span>{" "}
+                      {warrantyDate}
+                    </p>
+                  )}
+                  {warrantyDate && (
+                    <p className="text-sm ">
+                      <span className="text-[#015597] font-bold md:my-6 ">
+                        Remaining Warranty Days :
+                      </span>{" "}
+                      {remainingDays} days
+                    </p>
+                  )}
                 </div>
 
                 {/* Display the image with a download button */}
