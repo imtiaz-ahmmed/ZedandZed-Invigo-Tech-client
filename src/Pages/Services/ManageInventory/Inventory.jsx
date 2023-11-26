@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { FaRegEdit } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 import { TbListDetails } from "react-icons/tb";
-const Inventory = ({ inventory, handleDelete }) => {
+import EditForm from "./EditForm";
+const Inventory = ({ inventory, handleDelete, handleEdit }) => {
   const {
     itemName,
     itemCode,
@@ -37,6 +38,11 @@ const Inventory = ({ inventory, handleDelete }) => {
   const closeModal = () => {
     setModalOpen(false);
   };
+  const [editing, setEditing] = useState(false);
+
+  const openEditForm = () => {
+    setEditing(true);
+  };
 
   const downloadImage = () => {
     // Assuming the 'image' property contains base64 data
@@ -63,48 +69,56 @@ const Inventory = ({ inventory, handleDelete }) => {
 
   return (
     <>
-      <tr>
-        <td className="font-bold">{uniqueId}</td>
-        <td>{itemName}</td>
-        <td>{itemCode}</td>
-        <td>{itemSerialNumber}</td>
-        <td>{quantity}</td>
-        <td>
-          <span className="md:text-2xl">&#2547;</span> {price}
-        </td>
-        <th>
-          <button
-            onClick={openModal}
-            className="btn btn-outline btn-xs border-none"
-          >
-            <span className="text-lg text-blue-500">
-              <TbListDetails />
-            </span>
-          </button>
-        </th>
-        <th>
-          <button
-            onClick={() => handleEdit(inventory._id)}
-            className="btn btn-outline btn-xs border-none ml-2"
-          >
-            <span className="text-lg text-teal-700">
-              {" "}
-              <FaRegEdit />
-            </span>
-          </button>
-        </th>
-        <th>
-          <button
-            onClick={() => handleDelete(inventory._id)}
-            className="btn btn-outline btn-xs border-none ml-2"
-          >
-            <span className="text-lg text-red-600">
-              <MdDeleteForever />
-            </span>
-          </button>
-        </th>
-      </tr>
-
+      {editing ? (
+        <EditForm
+          inventory={inventory}
+          handleEdit={handleEdit}
+          setEditing={setEditing}
+        />
+      ) : (
+        <tr>
+          <td className="font-bold">{uniqueId}</td>
+          <td>{itemName}</td>
+          <td>{itemCode}</td>
+          <td>{itemSerialNumber}</td>
+          <td>{quantity}</td>
+          <td>
+            <span className="md:text-2xl">&#2547;</span> {price}
+          </td>
+          <th>
+            <button
+              onClick={openModal}
+              className="btn btn-outline btn-xs border-none"
+            >
+              <span className="text-lg text-blue-500">
+                <TbListDetails />
+              </span>
+            </button>
+          </th>
+          <th>
+            <button
+              onClick={openEditForm}
+              // onClick={() => handleEdit(inventory._id)}
+              className="btn btn-outline btn-xs border-none ml-2"
+            >
+              <span className="text-lg text-teal-700">
+                {" "}
+                <FaRegEdit />
+              </span>
+            </button>
+          </th>
+          <th>
+            <button
+              onClick={() => handleDelete(inventory._id)}
+              className="btn btn-outline btn-xs border-none ml-2"
+            >
+              <span className="text-lg text-red-600">
+                <MdDeleteForever />
+              </span>
+            </button>
+          </th>
+        </tr>
+      )}
       {/* Modal */}
       {modalOpen && (
         <div className="fixed inset-0 overflow-y-auto">

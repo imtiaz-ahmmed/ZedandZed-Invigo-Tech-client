@@ -5,38 +5,87 @@ import { Link } from "react-router-dom";
 import { FaHome } from "react-icons/fa";
 import Inventory from "./Inventory";
 import { Helmet } from "react-helmet";
+import Swal from "sweetalert2";
 const ManageInventory = () => {
   const [allInventory, setAllInventory] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  useEffect(() => {
+  const [editingInventory, setEditingInventory] = useState(null);
+  const fetchData = () => {
     fetch("http://localhost:5000/inventory")
       .then((res) => res.json())
       .then((data) => {
         setAllInventory(data);
         setIsLoading(false);
       });
+  };
+
+  // Update inventory data
+  const updateInventory = (inventoryId, updatedData) => {
+    fetch(`http://localhost:5000/inventory/${inventoryId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedData),
+    })
+      .then((res) => res.json())
+      .then(() => {
+        // After successful update, refetch the data
+        fetchData();
+      })
+      .catch((error) => {
+        console.error("Error updating inventory:", error);
+      });
+  };
+
+  useEffect(() => {
+    // Fetch data on component mount
+    fetchData();
   }, []);
 
-  const handleEdit = (inventoryId) => {
-    // Implement navigation to the edit page or modal using the inventoryId
-    console.log(`Edit inventory with ID ${inventoryId}`);
+  const handleEdit = (inventoryId, updatedData) => {
+    // Make the necessary update (e.g., API call) and update state
+    updateInventory(inventoryId, updatedData);
+    setEditingInventory(null); // Clear the editing state
   };
 
   const handleDelete = (inventoryId) => {
-    // Make a DELETE request to your backend to delete the inventory
-    fetch(`http://localhost:5000/inventory/${inventoryId}`, {
-      method: "DELETE",
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        // Update the state after successful deletion
-        setAllInventory((prevInventory) =>
-          prevInventory.filter((item) => item._id !== inventoryId)
-        );
-      })
-      .catch((error) => {
-        console.error("Error deleting inventory:", error);
-      });
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`http://localhost:5000/inventory/${inventoryId}`, {
+          method: "DELETE",
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            setAllInventory((prevInventory) =>
+              prevInventory.filter((item) => item._id !== inventoryId)
+            );
+
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your file has been deleted.",
+              icon: "success",
+            });
+          })
+          .catch((error) => {
+            console.error("Error deleting inventory:", error);
+
+            Swal.fire({
+              title: "Error!",
+              text: "An error occurred while deleting the inventory.",
+              icon: "error",
+            });
+          });
+      }
+    });
   };
 
   return (
@@ -86,6 +135,7 @@ const ManageInventory = () => {
                     key={inventory._id}
                     inventory={inventory}
                     handleDelete={handleDelete}
+                    handleEdit={handleEdit}
                   />
                 );
               })}
