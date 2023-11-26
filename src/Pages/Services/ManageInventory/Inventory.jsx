@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-
-const Inventory = ({ inventory }) => {
+import { FaRegEdit } from "react-icons/fa";
+import { MdDeleteForever } from "react-icons/md";
+import { TbListDetails } from "react-icons/tb";
+const Inventory = ({ inventory, handleDelete }) => {
   const {
     itemName,
     itemCode,
@@ -75,7 +77,30 @@ const Inventory = ({ inventory }) => {
             onClick={openModal}
             className="btn btn-outline btn-xs border-none"
           >
-            See Details
+            <span className="text-lg text-blue-500">
+              <TbListDetails />
+            </span>
+          </button>
+        </th>
+        <th>
+          <button
+            onClick={() => handleEdit(inventory._id)}
+            className="btn btn-outline btn-xs border-none ml-2"
+          >
+            <span className="text-lg text-teal-700">
+              {" "}
+              <FaRegEdit />
+            </span>
+          </button>
+        </th>
+        <th>
+          <button
+            onClick={() => handleDelete(inventory._id)}
+            className="btn btn-outline btn-xs border-none ml-2"
+          >
+            <span className="text-lg text-red-600">
+              <MdDeleteForever />
+            </span>
           </button>
         </th>
       </tr>
@@ -176,7 +201,7 @@ const Inventory = ({ inventory }) => {
                   {warrantyDate && (
                     <p className="text-sm ">
                       <span className="text-[#015597] font-bold md:my-6 ">
-                        Purchase Date :
+                        Warranty Date :
                       </span>{" "}
                       {warrantyDate}
                     </p>
@@ -189,6 +214,18 @@ const Inventory = ({ inventory }) => {
                       {remainingDays} days
                     </p>
                   )}
+                  <p className="text-sm ">
+                    <span className="text-[#015597] font-bold md:my-6 ">
+                      Employee Name :
+                    </span>{" "}
+                    {employeeName}
+                  </p>
+                  <p className="text-sm ">
+                    <span className="text-[#015597] font-bold md:my-6 ">
+                      Employee ID :
+                    </span>{" "}
+                    {employeeId}
+                  </p>
                 </div>
 
                 {/* Display the image with a download button */}

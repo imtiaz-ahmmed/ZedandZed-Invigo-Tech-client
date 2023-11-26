@@ -16,6 +16,29 @@ const ManageInventory = () => {
         setIsLoading(false);
       });
   }, []);
+
+  const handleEdit = (inventoryId) => {
+    // Implement navigation to the edit page or modal using the inventoryId
+    console.log(`Edit inventory with ID ${inventoryId}`);
+  };
+
+  const handleDelete = (inventoryId) => {
+    // Make a DELETE request to your backend to delete the inventory
+    fetch(`http://localhost:5000/inventory/${inventoryId}`, {
+      method: "DELETE",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        // Update the state after successful deletion
+        setAllInventory((prevInventory) =>
+          prevInventory.filter((item) => item._id !== inventoryId)
+        );
+      })
+      .catch((error) => {
+        console.error("Error deleting inventory:", error);
+      });
+  };
+
   return (
     <div>
       <Helmet>
@@ -50,6 +73,8 @@ const ManageInventory = () => {
                 <th>Quantity</th>
                 <th>Price</th>
                 <th>Details</th>
+                <th>Edit</th>
+                <th>Delete</th>
               </tr>
             </thead>
             <tbody>
@@ -60,7 +85,8 @@ const ManageInventory = () => {
                   <Inventory
                     key={inventory._id}
                     inventory={inventory}
-                  ></Inventory>
+                    handleDelete={handleDelete}
+                  />
                 );
               })}
             </tbody>
