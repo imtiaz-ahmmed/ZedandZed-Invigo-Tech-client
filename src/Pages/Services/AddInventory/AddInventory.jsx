@@ -95,7 +95,7 @@ const AddInventory = () => {
             <div className="form-control ">
               <label className="label">
                 <span className="label-text">
-                  Item Name <sup className="md:text-lg text-red-500">*</sup>
+                  Item Name <span className="md:text-lg text-red-500">*</span>
                 </span>
               </label>
               <input
@@ -110,7 +110,7 @@ const AddInventory = () => {
             <div className="form-control">
               <label className="label">
                 <span className="label-text">
-                  Item Code <sup className="md:text-lg text-red-500">*</sup>
+                  Item Code <span className="md:text-lg text-red-500">*</span>
                 </span>
               </label>
               <input
@@ -126,7 +126,7 @@ const AddInventory = () => {
               <label className="label">
                 <span className="label-text">
                   Item Serial Number{" "}
-                  <sup className="md:text-lg text-red-500">*</sup>
+                  <span className="md:text-lg text-red-500">*</span>
                 </span>
               </label>
               <input
@@ -141,7 +141,7 @@ const AddInventory = () => {
             <div className="form-control">
               <label className="label">
                 <span className="label-text">
-                  Unique ID <sup className="md:text-lg text-red-500">*</sup>
+                  Unique ID <span className="md:text-lg text-red-500">*</span>
                 </span>
               </label>
               <input
@@ -156,7 +156,7 @@ const AddInventory = () => {
             <div className="form-control">
               <label className="label">
                 <span className="label-text">
-                  Price <sup className="md:text-lg text-red-500">*</sup>
+                  Price <span className="md:text-lg text-red-500">*</span>
                 </span>
               </label>
               <input
@@ -171,7 +171,7 @@ const AddInventory = () => {
             <div className="form-control">
               <label className="label">
                 <span className="label-text">
-                  Quantity <sup className="md:text-lg text-red-500">*</sup>
+                  Quantity <span className="md:text-lg text-red-500">*</span>
                 </span>
               </label>
               <input
@@ -186,7 +186,8 @@ const AddInventory = () => {
             <div className="form-control">
               <label className="label">
                 <span className="label-text">
-                  Purchase Date <sup className="md:text-lg text-red-500">*</sup>
+                  Purchase Date{" "}
+                  <span className="md:text-lg text-red-500">*</span>
                 </span>
               </label>
               <input
@@ -201,7 +202,8 @@ const AddInventory = () => {
             <div className="form-control">
               <label className="label">
                 <span className="label-text">
-                  Warranty Ends <sup className="md:text-lg text-red-500"></sup>
+                  Warranty Ends{" "}
+                  <span className="md:text-lg text-red-500"></span>
                 </span>
               </label>
               <input
@@ -216,7 +218,7 @@ const AddInventory = () => {
             <div className="form-control">
               <label className="label">
                 <span className="label-text">
-                  Category <sup className="md:text-lg text-red-500">*</sup>
+                  Category <span className="md:text-lg text-red-500">*</span>
                 </span>
               </label>
               <select
@@ -251,7 +253,7 @@ const AddInventory = () => {
             <div className="form-control">
               <label className="label">
                 <span className="label-text">
-                  Description <sup className="md:text-lg text-red-500">*</sup>
+                  Description <span className="md:text-lg text-red-500">*</span>
                 </span>
               </label>
               <input
@@ -266,7 +268,7 @@ const AddInventory = () => {
             <div className="form-control">
               <label className="label">
                 <span className="label-text">
-                  Location <sup className="md:text-lg text-red-500">*</sup>
+                  Location <span className="md:text-lg text-red-500">*</span>
                 </span>
               </label>
               <input
@@ -281,7 +283,7 @@ const AddInventory = () => {
             <div className="form-control">
               <label className="label">
                 <span className="label-text">
-                  Remarks<sup className="md:text-lg text-red-500"></sup>
+                  Remarks<span className="md:text-lg text-red-500"></span>
                 </span>
               </label>
               <input
@@ -296,7 +298,8 @@ const AddInventory = () => {
             <div className="form-control ">
               <label className="label">
                 <span className="label-text">
-                  Add Bill Image <sup className="md:text-lg text-red-500"></sup>
+                  Add Bill Image{" "}
+                  <span className="md:text-lg text-red-500"></span>
                 </span>
               </label>
               <input
@@ -311,7 +314,8 @@ const AddInventory = () => {
             <div className="form-control ">
               <label className="label">
                 <span className="label-text">
-                  Item Photo URL <sup className="md:text-lg text-red-500"></sup>
+                  Item Photo URL{" "}
+                  <span className="md:text-lg text-red-500"></span>
                 </span>
               </label>
               <input
@@ -326,7 +330,8 @@ const AddInventory = () => {
             <div className="form-control ">
               <label className="label">
                 <span className="label-text">
-                  Employee Name <sup className="md:text-lg text-red-500">*</sup>
+                  Employee Name (User)
+                  <span className="md:text-lg text-red-500">*</span>
                 </span>
               </label>
               <input
@@ -341,7 +346,7 @@ const AddInventory = () => {
             <div className="form-control ">
               <label className="label">
                 <span className="label-text">
-                  Employee ID <sup className="md:text-lg text-red-500">*</sup>
+                  Employee ID <span className="md:text-lg text-red-500">*</span>
                 </span>
               </label>
               <input

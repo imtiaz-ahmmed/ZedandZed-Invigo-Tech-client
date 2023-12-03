@@ -1,5 +1,6 @@
 // EditForm.jsx
 import React, { useState } from "react";
+import Swal from "sweetalert2";
 
 const EditForm = ({ inventory, handleEdit, setEditing }) => {
   const [editedData, setEditedData] = useState({ ...inventory });
@@ -15,6 +16,13 @@ const EditForm = ({ inventory, handleEdit, setEditing }) => {
     e.preventDefault();
     handleEdit(inventory._id, editedData);
     setEditing(false); // Close the edit form after submission
+    Swal.fire({
+      position: "top-end",
+      icon: "success",
+      title: "Your work has been saved",
+      showConfirmButton: false,
+      timer: 1500,
+    });
   };
 
   return (
@@ -138,13 +146,13 @@ const EditForm = ({ inventory, handleEdit, setEditing }) => {
             </div>
 
             <div className="flex items-center justify-between">
-              <button type="submit" className="btn btn-primary">
+              <button type="submit" className="btn btn-outline btn-success">
                 Save Changes
               </button>
               <button
                 type="button"
                 onClick={() => setEditing(false)}
-                className="btn btn-secondary ml-2"
+                className="btn btn-outline btn-error ml-2"
               >
                 Cancel
               </button>

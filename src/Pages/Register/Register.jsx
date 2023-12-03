@@ -19,8 +19,10 @@ const Register = () => {
     createUser(data.email, data.password).then((result) => {
       const saveUser = {
         name: data.name,
+        employeeId: data.employeeId,
         email: data.email,
         designation: data.designation,
+        role: data.role,
       };
       fetch("http://localhost:5000/users", {
         method: "POST",
@@ -55,7 +57,7 @@ const Register = () => {
       <img className="mx-auto" src={logo} alt="" />
       <div className="hero mt-4 ">
         <div className="hero-content flex-col lg:flex-row-reverse  md:gap-16">
-          <div className="md:w-1/2 text-center lg:text-left">
+          <div className="md:w-4/12 text-center lg:text-left">
             <h1 className="text-3xl px-2 font-bold text-[#015597]">
               Add New User
             </h1>
@@ -68,7 +70,7 @@ const Register = () => {
             <form onSubmit={handleSubmit(onSubmit)} className="card-body">
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text">Name</span>
+                  <span className="label-text">Employee Name</span>
                 </label>
                 <input
                   {...register("name")}
@@ -81,16 +83,47 @@ const Register = () => {
               </div>
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text">Designation</span>
+                  <span className="label-text">Employee ID</span>
                 </label>
                 <input
-                  {...register("designation")}
+                  {...register("employeeId")}
                   type="text"
-                  name="designation"
-                  placeholder="designation"
+                  name="employeeId"
+                  placeholder="employee Id"
                   className="input input-bordered"
                   required
                 />
+              </div>
+              <div className="md:grid md:grid-cols-2 md:gap-4">
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text">Designation</span>
+                  </label>
+                  <input
+                    {...register("designation")}
+                    type="text"
+                    name="designation"
+                    placeholder="designation"
+                    className="input input-bordered"
+                    required
+                  />
+                </div>
+
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text">Role</span>
+                  </label>
+                  <select
+                    {...register("role")}
+                    name="role"
+                    className="select select-bordered"
+                    required
+                  >
+                    <option value="">Select Role</option>
+                    <option value="admin">Admin</option>
+                    <option value="moderator">Moderator</option>
+                  </select>
+                </div>
               </div>
               <div className="form-control">
                 <label className="label">
@@ -118,12 +151,13 @@ const Register = () => {
                   required
                 />
                 <span
-                  className="absolute mt-14 ms-52 md:ms-72 cursor-pointer"
+                  className="absolute mt-14 ms-48 md:ms-72 cursor-pointer"
                   onClick={() => setPasswordVisible(!passwordVisible)}
                 >
                   {passwordVisible ? <RiEyeCloseFill /> : <FaEye />}
                 </span>
               </div>
+
               <div className="form-control mt-6">
                 <button className="relative inline-flex items-center justify-center p-4 px-6 py-3 overflow-hidden font-medium text-indigo-600 transition duration-300 ease-out border-2 border-[#015597] rounded-full shadow-md group">
                   <span className="absolute inset-0 flex items-center justify-center w-full h-full text-white duration-300 -translate-x-full bg-[#015597] group-hover:translate-x-0 ease">
