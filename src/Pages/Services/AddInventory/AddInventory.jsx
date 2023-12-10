@@ -43,8 +43,10 @@ const AddInventory = () => {
       uniqueId: data.uniqueId,
       price: data.price,
       quantity: data.quantity,
+      vendor: data.vendor,
       purchaseDate: data.purchaseDate,
       warrantyDate: data.warrantyDate,
+      estimatedLifeTime: data.estimatedLifeTime,
       description: data.description,
       location: data.location,
       remarks: data.remarks,
@@ -110,6 +112,43 @@ const AddInventory = () => {
             <div className="form-control">
               <label className="label">
                 <span className="label-text">
+                  Category <span className="md:text-lg text-red-500">*</span>
+                </span>
+              </label>
+              <select
+                {...register("category")}
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+                className="select select-bordered"
+                required
+              >
+                <option value="" disabled>
+                  Select a category
+                </option>
+                <option value="Hardware">Hardware</option>
+                <option value="Software">Software</option>
+                <option value="Licenses">Licenses</option>
+                <option value="DataAndDatabases">Data and Databases</option>
+                <option value="Peripherals">Peripherals</option>
+                <option value="OfficeEquipment">Office Equipment</option>
+                <option value="ItAccessories">IT Accessories</option>
+                <option value="Documentation">Documentation</option>
+                <option value="Licenses">Licenses</option>
+                <option value="WarrantyAndSupportContracts">
+                  Warranty and Support Contracts
+                </option>
+                <option value="DigitalAssets">Digital Assets</option>
+                <option value="EmployeeDevices">Employee Devices</option>
+                <option value="CloudResources">Cloud Resources</option>
+                <option value="SecurityEquipment">Security Equipment</option>
+                <option value="Others">Others</option>
+              </select>
+            </div>
+          </div>
+          <div className="grid md:grid-cols-3 gap-5">
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">
                   Item Code <span className="md:text-lg text-red-500">*</span>
                 </span>
               </label>
@@ -166,8 +205,10 @@ const AddInventory = () => {
                 placeholder="price"
                 className="input input-bordered"
                 required
+                min="0"
               />
             </div>
+
             <div className="form-control">
               <label className="label">
                 <span className="label-text">
@@ -179,6 +220,22 @@ const AddInventory = () => {
                 type="number"
                 name="quantity"
                 placeholder="quantity"
+                className="input input-bordered"
+                min="1"
+                required
+              />
+            </div>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">
+                  Vendor <span className="md:text-lg text-red-500">*</span>
+                </span>
+              </label>
+              <input
+                {...register("vendor")}
+                type="text"
+                name="vendor"
+                placeholder="vendor"
                 className="input input-bordered"
                 required
               />
@@ -218,38 +275,21 @@ const AddInventory = () => {
             <div className="form-control">
               <label className="label">
                 <span className="label-text">
-                  Category <span className="md:text-lg text-red-500">*</span>
+                  Estimated Life Time
+                  <span className="md:text-lg text-red-500"></span>
                 </span>
               </label>
-              <select
-                {...register("category")}
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
-                className="select select-bordered"
+              <input
+                {...register("estimatedLifeTime")}
+                type="number"
+                name="estimatedLifeTime"
+                placeholder="estimated life time"
+                className="input input-bordered"
                 required
-              >
-                <option value="" disabled>
-                  Select a category
-                </option>
-                <option value="Hardware">Hardware</option>
-                <option value="Software">Software</option>
-                <option value="Licenses">Licenses</option>
-                <option value="DataAndDatabases">Data and Databases</option>
-                <option value="Peripherals">Peripherals</option>
-                <option value="OfficeEquipment">Office Equipment</option>
-                <option value="ItAccessories">IT Accessories</option>
-                <option value="Documentation">Documentation</option>
-                <option value="Licenses">Licenses</option>
-                <option value="WarrantyAndSupportContracts">
-                  Warranty and Support Contracts
-                </option>
-                <option value="DigitalAssets">Digital Assets</option>
-                <option value="EmployeeDevices">Employee Devices</option>
-                <option value="CloudResources">Cloud Resources</option>
-                <option value="SecurityEquipment">Security Equipment</option>
-                <option value="Others">Others</option>
-              </select>
+              />
             </div>
+          </div>
+          <div className="grid md:grid-cols-2 gap-5">
             <div className="form-control">
               <label className="label">
                 <span className="label-text">
@@ -271,15 +311,18 @@ const AddInventory = () => {
                   Location <span className="md:text-lg text-red-500">*</span>
                 </span>
               </label>
-              <input
+              <select
                 {...register("location")}
-                type="text"
                 name="location"
-                placeholder="location"
-                className="input input-bordered"
+                className="select select-bordered"
                 required
-              />
+              >
+                <option value="">Select Location</option>
+                <option value="Dhaka">Dhaka</option>
+                <option value="Chittagong">Chittagong</option>
+              </select>
             </div>
+
             <div className="form-control">
               <label className="label">
                 <span className="label-text">
@@ -331,7 +374,7 @@ const AddInventory = () => {
               <label className="label">
                 <span className="label-text">
                   Employee Name (User)
-                  <span className="md:text-lg text-red-500">*</span>
+                  <span className="md:text-lg text-red-500"> *</span>
                 </span>
               </label>
               <input
