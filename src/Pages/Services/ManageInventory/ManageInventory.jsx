@@ -124,6 +124,7 @@ const ManageInventory = () => {
                 <th>Details</th>
                 <th>Edit</th>
                 <th>Delete</th>
+                <th>QR Code</th>
               </tr>
             </thead>
             <tbody>

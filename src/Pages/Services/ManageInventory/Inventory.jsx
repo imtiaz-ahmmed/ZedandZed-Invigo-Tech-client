@@ -3,6 +3,8 @@ import { FaRegEdit } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 import { TbListDetails } from "react-icons/tb";
 import EditForm from "./EditForm";
+import QRCode from "qrcode.react";
+
 const Inventory = ({ inventory, handleDelete, handleEdit }) => {
   const {
     itemName,
@@ -28,6 +30,23 @@ const Inventory = ({ inventory, handleDelete, handleEdit }) => {
   const remainingDays = Math.floor(
     (warrantyDateObj - purchaseDateObj) / (24 * 60 * 60 * 1000)
   );
+  const qrCodeData = {
+    category,
+    itemCode,
+    itemName,
+    itemSerialNumber,
+    uniqueId,
+    employeeName,
+    employeeId,
+    price,
+    perUnitPrice,
+    quantity,
+    purchaseDate,
+    warrantyDate,
+    remainingDays,
+    description,
+    location,
+  };
 
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -66,6 +85,16 @@ const Inventory = ({ inventory, handleDelete, handleEdit }) => {
     // Clean up
     window.URL.revokeObjectURL(link.href);
   };
+
+  // Function to format the QR code data
+  const formatQRCodeData = (data) => {
+    return Object.entries(data)
+      .map(([key, value]) => `${key}: ${value}`)
+      .join("\n");
+  };
+
+  // Formatted QR code data
+  const formattedQRCodeData = formatQRCodeData(qrCodeData);
 
   return (
     <>
@@ -115,6 +144,14 @@ const Inventory = ({ inventory, handleDelete, handleEdit }) => {
               <span className="text-lg text-red-600">
                 <MdDeleteForever />
               </span>
+            </button>
+          </th>
+          <th>
+            <button
+              className="btn btn-xs"
+              onClick={() => document.getElementById("qrCodeModal").showModal()}
+            >
+              Generate QR
             </button>
           </th>
         </tr>
@@ -242,6 +279,11 @@ const Inventory = ({ inventory, handleDelete, handleEdit }) => {
                   </p>
                 </div>
 
+                <div className="mb-4">
+                  <h4 className="text-[#015597] font-bold md:my-3">QR Code:</h4>
+                  <QRCode value={formattedQRCodeData} />
+                </div>
+
                 {/* Display the image with a download button */}
                 <div className="mb-4">
                   <h4 className="text-[#015597] font-bold md:my-3">
@@ -280,6 +322,29 @@ const Inventory = ({ inventory, handleDelete, handleEdit }) => {
           </div>
         </div>
       )}
+      <dialog id="qrCodeModal" className="modal">
+        <div className="modal-box">
+          <form method="dialog">
+            {/* if there is a button in form, it will close the modal */}
+            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+              ✕
+            </button>
+          </form>
+
+          <div className="flex flex-col md:flex-row items-center gap-3 md:gap-7 md:m-6">
+            <div>
+              <h4 className="text-[#015597] font-bold my-3 ">QR Code:</h4>
+              <QRCode value={formattedQRCodeData} />
+            </div>
+            <div className="flex items-center gap-3 md:mt-12">
+              <button className="btn btn-xs btn-outline">Download</button>
+              <button className="btn btn-xs btn-outline btn-primary">
+                Print
+              </button>
+            </div>
+          </div>
+        </div>
+      </dialog>
     </>
   );
 };
