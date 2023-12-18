@@ -15,6 +15,7 @@ const Inventory = ({ inventory, handleDelete, handleEdit }) => {
     quantity,
     purchaseDate,
     warrantyDate,
+    estimatedLifeTime,
     description,
     location,
     remarks,
@@ -44,7 +45,6 @@ const Inventory = ({ inventory, handleDelete, handleEdit }) => {
     purchaseDate,
     warrantyDate,
     remainingDays,
-    description,
     location,
   };
 
@@ -95,7 +95,21 @@ const Inventory = ({ inventory, handleDelete, handleEdit }) => {
 
   // Formatted QR code data
   const formattedQRCodeData = formatQRCodeData(qrCodeData);
+  const printQRCode = () => {
+    window.print();
+  };
 
+  const downloadQRCode = () => {
+    const qrCodeContainer = document.getElementById("qrCodeContainer");
+    const qrCodeDataURL = qrCodeContainer
+      .querySelector("canvas")
+      .toDataURL("image/png");
+
+    const downloadLink = document.createElement("a");
+    downloadLink.href = qrCodeDataURL;
+    downloadLink.download = `${uniqueId}.png`;
+    downloadLink.click();
+  };
   return (
     <>
       {editing ? (
@@ -265,6 +279,14 @@ const Inventory = ({ inventory, handleDelete, handleEdit }) => {
                       {remainingDays} days
                     </p>
                   )}
+                  {estimatedLifeTime && (
+                    <p className="text-sm ">
+                      <span className="text-[#015597] font-bold md:my-6 ">
+                        Estimated Life Time :
+                      </span>{" "}
+                      {estimatedLifeTime} days
+                    </p>
+                  )}
                   <p className="text-sm ">
                     <span className="text-[#015597] font-bold md:my-6 ">
                       Employee Name :
@@ -325,20 +347,27 @@ const Inventory = ({ inventory, handleDelete, handleEdit }) => {
       <dialog id="qrCodeModal" className="modal">
         <div className="modal-box">
           <form method="dialog">
-            {/* if there is a button in form, it will close the modal */}
             <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
               ✕
             </button>
           </form>
 
           <div className="flex flex-col md:flex-row items-center gap-3 md:gap-7 md:m-6">
-            <div>
+            <div id="qrCodeContainer">
               <h4 className="text-[#015597] font-bold my-3 ">QR Code:</h4>
               <QRCode value={formattedQRCodeData} />
             </div>
             <div className="flex items-center gap-3 md:mt-12">
-              <button className="btn btn-xs btn-outline">Download</button>
-              <button className="btn btn-xs btn-outline btn-primary">
+              <button
+                className="btn btn-xs btn-outline"
+                onClick={downloadQRCode}
+              >
+                Download
+              </button>
+              <button
+                className="btn btn-xs btn-outline btn-primary"
+                onClick={printQRCode}
+              >
                 Print
               </button>
             </div>

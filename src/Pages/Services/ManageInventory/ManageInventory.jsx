@@ -6,10 +6,14 @@ import { FaHome } from "react-icons/fa";
 import Inventory from "./Inventory";
 import { Helmet } from "react-helmet";
 import Swal from "sweetalert2";
+
 const ManageInventory = () => {
   const [allInventory, setAllInventory] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [editingInventory, setEditingInventory] = useState(null);
+  const [searchInput, setSearchInput] = useState("");
+  const [filteredInventory, setFilteredInventory] = useState([]);
+
   const fetchData = () => {
     fetch("http://localhost:5000/inventory")
       .then((res) => res.json())
@@ -19,7 +23,6 @@ const ManageInventory = () => {
       });
   };
 
-  // Update inventory data
   const updateInventory = (inventoryId, updatedData) => {
     fetch(`http://localhost:5000/inventory/${inventoryId}`, {
       method: "PUT",
@@ -30,7 +33,6 @@ const ManageInventory = () => {
     })
       .then((res) => res.json())
       .then(() => {
-        // After successful update, refetch the data
         fetchData();
       })
       .catch((error) => {
@@ -39,14 +41,12 @@ const ManageInventory = () => {
   };
 
   useEffect(() => {
-    // Fetch data on component mount
     fetchData();
   }, []);
 
   const handleEdit = (inventoryId, updatedData) => {
-    // Make the necessary update (e.g., API call) and update state
     updateInventory(inventoryId, updatedData);
-    setEditingInventory(null); // Clear the editing state
+    setEditingInventory(null);
   };
 
   const handleDelete = (inventoryId) => {
@@ -64,7 +64,7 @@ const ManageInventory = () => {
           method: "DELETE",
         })
           .then((res) => res.json())
-          .then((data) => {
+          .then(() => {
             setAllInventory((prevInventory) =>
               prevInventory.filter((item) => item._id !== inventoryId)
             );
@@ -88,6 +88,22 @@ const ManageInventory = () => {
     });
   };
 
+  const handleSearch = (input) => {
+    setSearchInput(input);
+    const searchTerm = input.toLowerCase().trim();
+    const filteredData = allInventory.filter((item) => {
+      return (
+        item.itemName.toLowerCase().includes(searchTerm) ||
+        item.category.toLowerCase().includes(searchTerm) ||
+        item.uniqueId.toLowerCase().includes(searchTerm) ||
+        item.itemCode.toLowerCase().includes(searchTerm) ||
+        item.employeeId.toLowerCase().includes(searchTerm) ||
+        item.employeeName.toLowerCase().includes(searchTerm)
+      );
+    });
+    setFilteredInventory(filteredData);
+  };
+
   return (
     <div>
       <Helmet>
@@ -101,7 +117,21 @@ const ManageInventory = () => {
       </div>
       <hr />
 
-      {/* Main Content */}
+      <div className="my-6">
+        <label htmlFor="search" className="text-[#3070a2] font-bold text-lg">
+          Search :
+        </label>
+        <input
+          type="text"
+          id="search"
+          placeholder="search here"
+          className="input input-bordered input-info input-sm w-full max-w-xs p-2 ml-2"
+          value={searchInput}
+          onChange={(e) => handleSearch(e.target.value)}
+        />
+      </div>
+      <hr />
+
       {isLoading ? (
         <div className="flex flex-col items-center justify-center h-screen">
           <div className="animate-spin rounded-full border-t-4 border-blue-500 border-solid h-12 w-12 mb-4"></div>
@@ -112,7 +142,6 @@ const ManageInventory = () => {
       ) : (
         <div className="overflow-x-auto">
           <table className="table">
-            {/* head */}
             <thead>
               <tr>
                 <th>Unique ID</th>
@@ -120,7 +149,7 @@ const ManageInventory = () => {
                 <th>Item Code</th>
                 <th>Item Serial Number</th>
                 <th>Quantity</th>
-                <th>Price</th>
+                <th>Price </th>
                 <th>Details</th>
                 <th>Edit</th>
                 <th>Delete</th>
@@ -128,18 +157,16 @@ const ManageInventory = () => {
               </tr>
             </thead>
             <tbody>
-              {" "}
-              {allInventory.map((inventory) => {
-                console.log(inventory);
-                return (
+              {(searchInput ? filteredInventory : allInventory).map(
+                (inventory) => (
                   <Inventory
                     key={inventory._id}
                     inventory={inventory}
                     handleDelete={handleDelete}
                     handleEdit={handleEdit}
                   />
-                );
-              })}
+                )
+              )}
             </tbody>
           </table>
         </div>

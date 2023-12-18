@@ -275,7 +275,7 @@ const AddInventory = () => {
             <div className="form-control">
               <label className="label">
                 <span className="label-text">
-                  Estimated Life Time
+                  Estimated Life Time (days)
                   <span className="md:text-lg text-red-500"></span>
                 </span>
               </label>
@@ -285,6 +285,7 @@ const AddInventory = () => {
                 name="estimatedLifeTime"
                 placeholder="estimated life time"
                 className="input input-bordered"
+                min="0"
                 required
               />
             </div>
@@ -351,6 +352,7 @@ const AddInventory = () => {
                 name="add-image"
                 placeholder="add bill image"
                 className="input file-input w-full input-bordered py-2"
+                accept=".pdf, .png, .jpg, .jpeg, .doc, .docx, .xls, .xlsx"
               />
             </div>
 
