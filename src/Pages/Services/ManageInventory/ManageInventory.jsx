@@ -6,6 +6,7 @@ import { FaHome } from "react-icons/fa";
 import Inventory from "./Inventory";
 import { Helmet } from "react-helmet";
 import Swal from "sweetalert2";
+import Navigation from "../../../Shared/Navbar/Navigation";
 
 const ManageInventory = () => {
   const [allInventory, setAllInventory] = useState([]);
@@ -105,11 +106,14 @@ const ManageInventory = () => {
   };
 
   return (
-    <div>
+    <div className="mb-4">
       <Helmet>
         <title>ZnZ || Manage Inventory</title>
       </Helmet>
       <Navbar></Navbar>
+      <hr />
+
+      <Navigation></Navigation>
       <hr />
       <div className="text-[#3070a2] font-bold text-3xl  py-5 flex items-center gap-2 justify-center">
         <MdInventory />
@@ -125,7 +129,7 @@ const ManageInventory = () => {
           type="text"
           id="search"
           placeholder="search here"
-          className="input input-bordered input-info input-sm w-full max-w-xs p-2 ml-2"
+          className="input input-bordered input-info input-sm md:w-full max-w-xs p-2 ml-2"
           value={searchInput}
           onChange={(e) => handleSearch(e.target.value)}
         />
@@ -171,13 +175,6 @@ const ManageInventory = () => {
           </table>
         </div>
       )}
-
-      <Link to="/">
-        <div className="text-sm flex gap-1 md:px-40 px-8   items-center py-5 text-[#015597] font-bold ">
-          <FaHome />
-          <h6 className="border-b-2">Back to Home</h6>
-        </div>
-      </Link>
     </div>
   );
 };

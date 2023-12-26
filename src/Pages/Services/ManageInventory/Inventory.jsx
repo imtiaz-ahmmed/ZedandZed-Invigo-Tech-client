@@ -4,6 +4,9 @@ import { MdDeleteForever } from "react-icons/md";
 import { TbListDetails } from "react-icons/tb";
 import EditForm from "./EditForm";
 import QRCode from "qrcode.react";
+import jsPDF from "jspdf";
+import "jspdf-autotable";
+import logo from "../../../../public/znz.png";
 
 const Inventory = ({ inventory, handleDelete, handleEdit }) => {
   const {
@@ -110,6 +113,93 @@ const Inventory = ({ inventory, handleDelete, handleEdit }) => {
     downloadLink.download = `${uniqueId}.png`;
     downloadLink.click();
   };
+
+  const generatePDF = () => {
+    const pdf = new jsPDF();
+    const {
+      itemName,
+      itemCode,
+      itemSerialNumber,
+      uniqueId,
+      price,
+      quantity,
+      purchaseDate,
+      warrantyDate,
+      estimatedLifeTime,
+      location,
+      category,
+      employeeName,
+      employeeId,
+    } = inventory;
+
+    const companyInfo = {
+      addressDhaka:
+        " House: 322, Rd# 22, New DOHS, Mohakhali, Dhaka-1213, Bangladesh",
+      addressChittagong:
+        " Shahajadi Chamber(5th Floor), 1331/B, Sk.Mujib Road, Agrabad C/A.",
+      phone: "880-2- 2222263378-80",
+      mobile: "+8801711867974",
+      email: "info@zednzedit.com",
+    };
+
+    pdf.addImage(logo, "PNG", 60, 10);
+    pdf.setFont("helvetica", "normal");
+    pdf.setFontSize(14);
+    pdf.text("Inventory Details Report", 80, 90);
+
+    const data = [
+      ["Field", "Value"],
+      ["Item Name", itemName],
+      ["Item Code", itemCode],
+      ["Item Serial Number", itemSerialNumber],
+      ["Unique ID", uniqueId],
+      ["Price", price],
+      ["Quantity", quantity],
+      ["Purchase Date", purchaseDate],
+      ["Warranty Date", warrantyDate],
+      ["Estimated Life Time", estimatedLifeTime],
+      ["Location", location],
+      ["Category", category],
+      ["Employee Name", employeeName],
+      ["Employee ID", employeeId],
+    ];
+    pdf.text(
+      "--------------------------------------------------------------------------------------------------------------------",
+      10,
+      250
+    );
+    // Set font and style for company information
+    pdf.setFont("helvetica", "bold");
+    pdf.setFontSize(6);
+    pdf.setTextColor(33, 33, 33);
+    pdf.text(
+      `Dhaka Office: ${companyInfo.addressDhaka} Chittagong Office: ${companyInfo.addressChittagong}`,
+      20,
+      260
+    );
+    pdf.text(
+      `Phone: ${companyInfo.phone} Mobile: ${companyInfo.mobile} Email: ${companyInfo.email}`,
+      70,
+      265
+    );
+
+    // Use autotable plugin for a professional table layout
+    pdf.autoTable({
+      startY: 100,
+
+      head: [data[0]],
+      body: data.slice(1),
+      theme: "grid",
+      columnStyles: {
+        0: { cellWidth: 65 },
+        1: { cellWidth: 120 },
+      },
+    });
+
+    // Save the PDF with a specific name
+    pdf.save(`${uniqueId}_report.pdf`);
+  };
+
   return (
     <>
       {editing ? (
@@ -313,7 +403,7 @@ const Inventory = ({ inventory, handleDelete, handleEdit }) => {
                   </h4>
                   <img
                     className="w-full border-8"
-                    src={photoURL}
+                    src={`data:image/png;base64,${photoURL}`}
                     alt={itemName}
                   />
                   <h4 className="text-[#015597] font-bold md:my-3">
@@ -326,9 +416,17 @@ const Inventory = ({ inventory, handleDelete, handleEdit }) => {
                   />
                   <button
                     onClick={downloadImage}
-                    className="mt-2 btn btn-outline btn-primary"
+                    className="mt-4 btn btn-outline btn-primary"
                   >
                     Download Bill
+                  </button>
+                  <button
+                    onClick={() => {
+                      generatePDF();
+                    }}
+                    className="mt-4 btn btn-outline md:ml-10"
+                  >
+                    Generate Report
                   </button>
                 </div>
               </div>

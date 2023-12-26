@@ -1,12 +1,12 @@
 import { FaHome } from "react-icons/fa";
 import Navbar from "../../../Shared/Navbar/Navbar";
 import { MdOutlineInventory } from "react-icons/md";
-import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { VscDiffAdded } from "react-icons/vsc";
 import { useState } from "react";
 import Swal from "sweetalert2";
 import { Helmet } from "react-helmet";
+import Navigation from "../../../Shared/Navbar/Navigation";
 
 const AddInventory = () => {
   const { register, handleSubmit, reset } = useForm();
@@ -28,12 +28,18 @@ const AddInventory = () => {
   };
 
   const onSubmit = async (data) => {
-    const imageInput = document.querySelector('input[name="add-image"]');
-    const imageFile = imageInput.files[0];
+    const imageInput1 = document.querySelector('input[name="add-image"]');
+    const imageInput2 = document.querySelector('input[name="photoURL"]');
+    const imageFile1 = imageInput1.files[0];
+    const imageFile2 = imageInput2.files[0];
 
-    if (imageFile) {
-      const base64Image = await convertImageToBase64(imageFile);
+    if (imageFile1) {
+      const base64Image = await convertImageToBase64(imageFile1);
       data.image = base64Image;
+    }
+    if (imageFile2) {
+      const base64Image = await convertImageToBase64(imageFile2);
+      data.photoURL = base64Image;
     }
 
     const saveInventory = {
@@ -80,17 +86,20 @@ const AddInventory = () => {
   };
 
   return (
-    <div>
+    <div className="mb-5">
       <Helmet>
         <title>ZnZ || Add Inventory</title>
       </Helmet>
       <Navbar></Navbar>
+      <hr />
+      <Navigation></Navigation>
       <hr />
       <div className="text-[#3070a2] font-bold text-3xl py-5 flex items-center gap-2 justify-center">
         <MdOutlineInventory />
         <h4> Add Inventory</h4>
       </div>
       <hr />
+
       <div className="card w-full shadow-2xl bg-base-100">
         <form onSubmit={handleSubmit(onSubmit)} className="card-body ">
           <div className="grid md:grid-cols-2 gap-5">
@@ -359,16 +368,15 @@ const AddInventory = () => {
             <div className="form-control ">
               <label className="label">
                 <span className="label-text">
-                  Item Photo URL{" "}
-                  <span className="md:text-lg text-red-500"></span>
+                  Item Photo <span className="md:text-lg text-red-500"></span>
                 </span>
               </label>
               <input
                 {...register("photoURL")}
-                type="url"
+                type="file"
                 name="photoURL"
                 placeholder="item photo url"
-                className="input input-bordered"
+                className="input file-input w-full input-bordered py-2"
               />
             </div>
 
@@ -425,13 +433,6 @@ const AddInventory = () => {
           * This field is Required
         </span>
       </div>
-
-      <Link to="/">
-        <div className="text-sm flex gap-1 md:px-40 px-8 items-center py-5 text-[#015597] font-bold ">
-          <FaHome />
-          <h6 className="border-b-2">Back to Home</h6>
-        </div>
-      </Link>
     </div>
   );
 };

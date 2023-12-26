@@ -6,6 +6,7 @@ import { LiaUsersSolid } from "react-icons/lia";
 import User from "./User";
 import { FaHome } from "react-icons/fa";
 import { Helmet } from "react-helmet";
+import Navigation from "../../../Shared/Navbar/Navigation";
 const ManageUser = () => {
   const [allUsers, setAllUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -46,6 +47,8 @@ const ManageUser = () => {
       </Helmet>
       <Navbar />
       <hr />
+      <Navigation></Navigation>
+      <hr />
       <div className="md:grid grid-cols-2 justify-center items-center gap-5 text-lg my-5 px-5">
         <div>
           <h2 className="text-[#4ba5ea] font-bold p-1 md:p-3 bg-slate-200 hover:bg-slate-300  rounded-lg my-3 md:my-0">
@@ -71,7 +74,7 @@ const ManageUser = () => {
           type="text"
           id="search"
           placeholder="search here"
-          className="input input-bordered input-info input-sm w-full max-w-xs p-2 ml-2"
+          className="input input-bordered input-info input-sm md:w-full max-w-xs p-2 ml-2"
           value={searchInput}
           onChange={(e) => setSearchInput(e.target.value)}
         />
@@ -98,13 +101,6 @@ const ManageUser = () => {
           ))}
         </div>
       )}
-
-      <Link to="/">
-        <div className="text-sm flex gap-1 md:px-40 px-8   items-center py-5 text-[#015597] font-bold ">
-          <FaHome />
-          <h6 className="border-b-2">Back to Home</h6>
-        </div>
-      </Link>
     </div>
   );
 };

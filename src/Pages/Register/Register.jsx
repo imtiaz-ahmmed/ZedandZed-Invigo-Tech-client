@@ -9,6 +9,7 @@ import Swal from "sweetalert2";
 import { Helmet } from "react-helmet";
 import { RiEyeCloseFill } from "react-icons/ri";
 import { FaEye } from "react-icons/fa";
+import Navigation from "../../Shared/Navbar/Navigation";
 const Register = () => {
   const { register, handleSubmit, reset } = useForm();
   const { createUser } = useContext(AuthContext);
@@ -54,6 +55,9 @@ const Register = () => {
       <Helmet>
         <title>ZnZ || Registration</title>
       </Helmet>
+      <hr />
+      <Navigation></Navigation>
+      <hr />
       <img className="mx-auto" src={logo} alt="" />
       <div className="hero mt-4 ">
         <div className="hero-content flex-col lg:flex-row-reverse  md:gap-16">
@@ -177,12 +181,6 @@ const Register = () => {
           </div>
         </div>
       </div>
-      <Link to="/">
-        <div className="text-sm flex gap-1 md:px-40 px-8  items-center py-5 text-[#015597] font-bold ">
-          <FaHome />
-          <h6>Back to Home</h6>
-        </div>
-      </Link>
     </div>
   );
 };
