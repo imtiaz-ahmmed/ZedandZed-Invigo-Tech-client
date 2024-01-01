@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./Inventory.css";
 import { FaRegEdit } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 import { TbListDetails } from "react-icons/tb";
@@ -50,6 +51,7 @@ const Inventory = ({ inventory, handleDelete, handleEdit }) => {
     purchaseDate,
     warrantyDate,
     remainingDays,
+    estimatedLifeTime,
     location,
   };
 
@@ -453,27 +455,29 @@ const Inventory = ({ inventory, handleDelete, handleEdit }) => {
         </div>
       )}
       <dialog id="qrCodeModal" className="modal">
-        <div className="modal-box">
+        <div className="modal-box ">
           <form method="dialog">
-            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 hide-on-print">
               ✕
             </button>
           </form>
 
           <div className="flex flex-col md:flex-row items-center gap-3 md:gap-7 md:m-6">
             <div id="qrCodeContainer">
-              <h4 className="text-[#015597] font-bold my-3 ">QR Code:</h4>
+              <h4 className="text-[#015597] font-bold my-3 hide-on-print ">
+                QR Code:
+              </h4>
               <QRCode value={formattedQRCodeData} />
             </div>
             <div className="flex items-center gap-3 md:mt-12">
               <button
-                className="btn btn-xs btn-outline"
+                className="btn btn-xs btn-outline hide-on-print"
                 onClick={downloadQRCode}
               >
                 Download
               </button>
               <button
-                className="btn btn-xs btn-outline btn-primary"
+                className="btn  btn-xs btn-outline btn-primary hide-on-print"
                 onClick={printQRCode}
               >
                 Print

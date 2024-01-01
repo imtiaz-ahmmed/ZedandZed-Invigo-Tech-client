@@ -382,7 +382,7 @@ const AddInventory = () => {
               />
             </div>
           </div>
-          <h4 className="text-center text-lg text-[#3070a2] font-bold border-b-2 border-t-2 my-2 bg-slate-100 hover:bg-slate-50 p-2">
+          <h4 className="text-center text-lg text-[#3070a2] font-bold border-b-2 border-t-2 mt-8 bg-slate-100 hover:bg-slate-50 p-2">
             User Section{" "}
           </h4>
           <div className="grid md:grid-cols-3 gap-5">
