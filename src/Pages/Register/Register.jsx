@@ -24,6 +24,7 @@ const Register = () => {
         email: data.email,
         designation: data.designation,
         role: data.role,
+        department: data.department,
       };
       fetch("http://localhost:5000/users", {
         method: "POST",
@@ -81,23 +82,50 @@ const Register = () => {
                   type="text"
                   name="name"
                   placeholder="name"
-                  className="input input-bordered"
+                  className="input input-bordered input-info"
                   required
                 />
               </div>
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text">Employee ID</span>
-                </label>
-                <input
-                  {...register("employeeId")}
-                  type="text"
-                  name="employeeId"
-                  placeholder="employee Id"
-                  className="input input-bordered"
-                  required
-                />
+
+              <div className="md:grid md:grid-cols-2 md:gap-4">
+                {" "}
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text">Employee ID</span>
+                  </label>
+                  <input
+                    {...register("employeeId")}
+                    type="text"
+                    name="employeeId"
+                    placeholder="employee Id"
+                    className="input input-bordered input-info"
+                    required
+                  />
+                </div>
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text">Department</span>
+                  </label>
+                  <select
+                    {...register("department")}
+                    name="department"
+                    className="select select-bordered select-info"
+                    required
+                  >
+                    <option value="">Select Department</option>
+                    <option value="finance">Finance</option>
+                    <option value="marketing">Marketing</option>
+                    <option value="operations_management">
+                      Operations Management
+                    </option>
+                    <option value="human_resources">Human Resources</option>
+                    <option value="information_technology">
+                      Information Technology
+                    </option>
+                  </select>
+                </div>
               </div>
+
               <div className="md:grid md:grid-cols-2 md:gap-4">
                 <div className="form-control">
                   <label className="label">
@@ -108,7 +136,7 @@ const Register = () => {
                     type="text"
                     name="designation"
                     placeholder="designation"
-                    className="input input-bordered"
+                    className="input input-bordered input-info"
                     required
                   />
                 </div>
@@ -120,12 +148,13 @@ const Register = () => {
                   <select
                     {...register("role")}
                     name="role"
-                    className="select select-bordered"
+                    className="select select-bordered select-info"
                     required
                   >
                     <option value="">Select Role</option>
                     <option value="admin">Admin</option>
                     <option value="moderator">Moderator</option>
+                    <option value="editor">Editor</option>
                   </select>
                 </div>
               </div>
@@ -138,7 +167,7 @@ const Register = () => {
                   type="email"
                   name="email"
                   placeholder="email"
-                  className="input input-bordered"
+                  className="input input-bordered input-info"
                   required
                 />
               </div>
@@ -151,7 +180,7 @@ const Register = () => {
                   type={passwordVisible ? "text" : "password"}
                   name="password"
                   placeholder="password"
-                  className="input input-bordered"
+                  className="input input-bordered input-info"
                   required
                 />
                 <span

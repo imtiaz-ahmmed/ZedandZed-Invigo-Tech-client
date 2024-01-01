@@ -91,7 +91,7 @@ const Login = () => {
                   type="email"
                   name="email"
                   placeholder="email"
-                  className="input input-bordered"
+                  className="input input-bordered input-info"
                   required
                 />
               </div>
@@ -103,7 +103,7 @@ const Login = () => {
                   type={passwordVisible ? "text" : "password"}
                   name="password"
                   placeholder="password"
-                  className="input input-bordered"
+                  className="input input-bordered input-info"
                   required
                 />
                 <span

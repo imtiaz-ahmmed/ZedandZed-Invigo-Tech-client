@@ -27,6 +27,7 @@ const Inventory = ({ inventory, handleDelete, handleEdit }) => {
     category,
     employeeName,
     employeeId,
+    employeeDepartment,
   } = inventory;
   const perUnitPrice = parseFloat(price) / parseInt(quantity);
   const purchaseDateObj = new Date(inventory.purchaseDate);
@@ -42,6 +43,7 @@ const Inventory = ({ inventory, handleDelete, handleEdit }) => {
     uniqueId,
     employeeName,
     employeeId,
+    employeeDepartment,
     price,
     perUnitPrice,
     quantity,
@@ -77,12 +79,12 @@ const Inventory = ({ inventory, handleDelete, handleEdit }) => {
       byteNumbers[i] = byteCharacters.charCodeAt(i);
     }
     const byteArray = new Uint8Array(byteNumbers);
-    const blob = new Blob([byteArray], { type: "image/png" });
+    const blob = new Blob([byteArray], { type: "image/pdf" });
 
     // Create a temporary link and trigger a click to download
     const link = document.createElement("a");
     link.href = window.URL.createObjectURL(blob);
-    link.download = `${itemName}_image.png`;
+    link.download = `${itemName}.pdf`;
     link.click();
 
     // Clean up
@@ -130,6 +132,7 @@ const Inventory = ({ inventory, handleDelete, handleEdit }) => {
       category,
       employeeName,
       employeeId,
+      employeeDepartment,
     } = inventory;
 
     const companyInfo = {
@@ -160,8 +163,9 @@ const Inventory = ({ inventory, handleDelete, handleEdit }) => {
       ["Estimated Life Time", estimatedLifeTime],
       ["Location", location],
       ["Category", category],
-      ["Employee Name", employeeName],
-      ["Employee ID", employeeId],
+      ["Employee Name (User)", employeeName],
+      ["Employee ID (User)", employeeId],
+      ["Employee Department (User)", employeeDepartment],
     ];
     pdf.text(
       "--------------------------------------------------------------------------------------------------------------------",
@@ -252,10 +256,10 @@ const Inventory = ({ inventory, handleDelete, handleEdit }) => {
           </th>
           <th>
             <button
-              className="btn btn-xs"
+              className="btn btn-outline px-4 btn-xs"
               onClick={() => document.getElementById("qrCodeModal").showModal()}
             >
-              Generate QR
+              QR
             </button>
           </th>
         </tr>
@@ -389,6 +393,12 @@ const Inventory = ({ inventory, handleDelete, handleEdit }) => {
                     </span>{" "}
                     {employeeId}
                   </p>
+                  <p className="text-sm ">
+                    <span className="text-[#015597] font-bold md:my-6 ">
+                      Employee Department :
+                    </span>{" "}
+                    {employeeDepartment}
+                  </p>
                 </div>
 
                 <div className="mb-4">
@@ -406,14 +416,14 @@ const Inventory = ({ inventory, handleDelete, handleEdit }) => {
                     src={`data:image/png;base64,${photoURL}`}
                     alt={itemName}
                   />
-                  <h4 className="text-[#015597] font-bold md:my-3">
+                  {/* <h4 className="text-[#015597] font-bold md:my-3">
                     Attached Bill:
                   </h4>
                   <img
                     src={`data:image/png;base64,${image}`}
                     alt={uniqueId}
                     className="w-full border-8"
-                  />
+                  /> */}
                   <button
                     onClick={downloadImage}
                     className="mt-4 btn btn-outline btn-primary"

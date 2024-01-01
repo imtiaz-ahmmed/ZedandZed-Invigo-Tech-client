@@ -61,6 +61,7 @@ const AddInventory = () => {
       category: category,
       employeeName: data.employeeName,
       employeeId: data.employeeId,
+      employeeDepartment: data.employeeDepartment,
     };
 
     console.log(saveInventory);
@@ -114,7 +115,7 @@ const AddInventory = () => {
                 type="text"
                 name="itemName"
                 placeholder="item name"
-                className="input input-bordered"
+                className="input input-bordered input-info"
                 required
               />
             </div>
@@ -128,7 +129,7 @@ const AddInventory = () => {
                 {...register("category")}
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
-                className="select select-bordered"
+                className="select select-bordered select-info"
                 required
               >
                 <option value="" disabled>
@@ -166,7 +167,7 @@ const AddInventory = () => {
                 type="text"
                 name="itemCode"
                 placeholder="item code"
-                className="input input-bordered"
+                className="input input-bordered input-info"
                 required
               />
             </div>
@@ -182,7 +183,7 @@ const AddInventory = () => {
                 type="text"
                 name="itemSerialNumber"
                 placeholder="item serial number"
-                className="input input-bordered"
+                className="input input-bordered input-info"
                 required
               />
             </div>
@@ -197,7 +198,7 @@ const AddInventory = () => {
                 type="text"
                 name="uniqueId"
                 placeholder="unique id"
-                className="input input-bordered"
+                className="input input-bordered input-info"
                 required
               />
             </div>
@@ -212,7 +213,7 @@ const AddInventory = () => {
                 type="number"
                 name="price"
                 placeholder="price"
-                className="input input-bordered"
+                className="input input-bordered input-info"
                 required
                 min="0"
               />
@@ -229,7 +230,7 @@ const AddInventory = () => {
                 type="number"
                 name="quantity"
                 placeholder="quantity"
-                className="input input-bordered"
+                className="input input-bordered input-info"
                 min="1"
                 required
               />
@@ -245,7 +246,7 @@ const AddInventory = () => {
                 type="text"
                 name="vendor"
                 placeholder="vendor"
-                className="input input-bordered"
+                className="input input-bordered input-info"
                 required
               />
             </div>
@@ -261,7 +262,7 @@ const AddInventory = () => {
                 type="Date"
                 name="purchaseDate"
                 placeholder="purchase date"
-                className="input input-bordered"
+                className="input input-bordered input-info"
                 required
               />
             </div>
@@ -277,7 +278,7 @@ const AddInventory = () => {
                 type="Date"
                 name="warrantyDate"
                 placeholder="warranty date"
-                className="input input-bordered"
+                className="input input-bordered input-info"
                 required
               />
             </div>
@@ -293,13 +294,13 @@ const AddInventory = () => {
                 type="number"
                 name="estimatedLifeTime"
                 placeholder="estimated life time"
-                className="input input-bordered"
+                className="input input-bordered input-info"
                 min="0"
                 required
               />
             </div>
           </div>
-          <div className="grid md:grid-cols-2 gap-5">
+          <div className="grid md:grid-cols-3 gap-5">
             <div className="form-control">
               <label className="label">
                 <span className="label-text">
@@ -311,7 +312,7 @@ const AddInventory = () => {
                 type="text"
                 name="description"
                 placeholder="description"
-                className="input input-bordered"
+                className="input input-bordered input-info"
                 required
               />
             </div>
@@ -324,7 +325,7 @@ const AddInventory = () => {
               <select
                 {...register("location")}
                 name="location"
-                className="select select-bordered"
+                className="select select-bordered select-info"
                 required
               >
                 <option value="">Select Location</option>
@@ -344,15 +345,15 @@ const AddInventory = () => {
                 type="text"
                 name="remarks"
                 placeholder="remarks"
-                className="input input-bordered"
+                className="input input-bordered input-info"
               />
             </div>
-
+          </div>
+          <div className="grid md:grid-cols-2 gap-5">
             <div className="form-control ">
               <label className="label">
                 <span className="label-text">
-                  Add Bill Image{" "}
-                  <span className="md:text-lg text-red-500"></span>
+                  Add Bill <span className="md:text-lg text-red-500"></span>
                 </span>
               </label>
               <input
@@ -360,7 +361,7 @@ const AddInventory = () => {
                 type="file"
                 name="add-image"
                 placeholder="add bill image"
-                className="input file-input w-full input-bordered py-2"
+                className="input file-input w-full input-bordered input-info py-2"
                 accept=".pdf, .png, .jpg, .jpeg, .doc, .docx, .xls, .xlsx"
               />
             </div>
@@ -368,7 +369,8 @@ const AddInventory = () => {
             <div className="form-control ">
               <label className="label">
                 <span className="label-text">
-                  Item Photo <span className="md:text-lg text-red-500"></span>
+                  Add Item Image{" "}
+                  <span className="md:text-lg text-red-500"></span>
                 </span>
               </label>
               <input
@@ -376,10 +378,14 @@ const AddInventory = () => {
                 type="file"
                 name="photoURL"
                 placeholder="item photo url"
-                className="input file-input w-full input-bordered py-2"
+                className="input file-input w-full input-bordered py-2 input-info"
               />
             </div>
-
+          </div>
+          <h4 className="text-center text-lg text-[#3070a2] font-bold border-b-2 border-t-2 my-2 bg-slate-100 hover:bg-slate-50 p-2">
+            User Section{" "}
+          </h4>
+          <div className="grid md:grid-cols-3 gap-5">
             <div className="form-control ">
               <label className="label">
                 <span className="label-text">
@@ -392,7 +398,7 @@ const AddInventory = () => {
                 type="text"
                 name="employeeName"
                 placeholder="employee name"
-                className="input input-bordered"
+                className="input input-bordered input-info"
                 required
               />
             </div>
@@ -407,9 +413,33 @@ const AddInventory = () => {
                 type="text"
                 name="employeeId"
                 placeholder="employee id"
-                className="input input-bordered"
+                className="input input-bordered input-info"
                 required
               />
+            </div>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">
+                  Department<span className="md:text-lg text-red-500"> *</span>
+                </span>
+              </label>
+              <select
+                {...register("employeeDepartment")}
+                name="employeeDepartment"
+                className="select select-bordered select-info"
+                required
+              >
+                <option value="">Select Department</option>
+                <option value="Finance">Finance</option>
+                <option value="Marketing">Marketing</option>
+                <option value="OperationsManagement">
+                  Operations Management
+                </option>
+                <option value="HumanResources">Human Resources</option>
+                <option value="InformationTechnology">
+                  Information Technology
+                </option>
+              </select>
             </div>
           </div>
 
