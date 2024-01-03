@@ -8,6 +8,7 @@ import QRCode from "qrcode.react";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 import logo from "../../../../public/znz.png";
+import { useNavigate } from "react-router-dom";
 
 const Inventory = ({ inventory, handleDelete, handleEdit }) => {
   const {
@@ -29,6 +30,7 @@ const Inventory = ({ inventory, handleDelete, handleEdit }) => {
     employeeName,
     employeeId,
     employeeDepartment,
+    itemHandoverDate,
   } = inventory;
   const perUnitPrice = parseFloat(price) / parseInt(quantity);
   const purchaseDateObj = new Date(inventory.purchaseDate);
@@ -45,6 +47,7 @@ const Inventory = ({ inventory, handleDelete, handleEdit }) => {
     employeeName,
     employeeId,
     employeeDepartment,
+    itemHandoverDate,
     price,
     perUnitPrice,
     quantity,
@@ -68,6 +71,12 @@ const Inventory = ({ inventory, handleDelete, handleEdit }) => {
 
   const openEditForm = () => {
     setEditing(true);
+  };
+
+  const navigate = useNavigate();
+  const handleViewInventory = () => {
+    // Navigate to the "all-data" route with form data
+    navigate("/view-inventory", { state: { inventory } });
   };
 
   const downloadImage = () => {
@@ -226,7 +235,8 @@ const Inventory = ({ inventory, handleDelete, handleEdit }) => {
           </td>
           <th>
             <button
-              onClick={openModal}
+              // onClick={openModal}
+              onClick={handleViewInventory}
               className="btn btn-outline btn-xs border-none"
             >
               <span className="text-lg text-blue-500">

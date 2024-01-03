@@ -7,6 +7,7 @@ import PrivateRoutes from "./PrivateRoutes";
 import AddInventory from "../Pages/Services/AddInventory/AddInventory";
 import ManageUser from "../Pages/Services/ManageUser/ManageUser";
 import ManageInventory from "../Pages/Services/ManageInventory/ManageInventory";
+import ViewInventory from "../Pages/Services/ViewInventory/ViewInventory";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -53,6 +54,14 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoutes>
             <ManageInventory></ManageInventory>
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "/view-inventory",
+        element: (
+          <PrivateRoutes>
+            <ViewInventory></ViewInventory>
           </PrivateRoutes>
         ),
       },

@@ -144,6 +144,41 @@ const EditForm = ({ inventory, handleEdit, setEditing }) => {
                 className="form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm"
               />
             </div>
+            <div className="mb-4">
+              <label className="block text-sm font-bold text-gray-700">
+                Employee Department:
+              </label>
+              <select
+                name="employeeDepartment"
+                value={editedData.employeeDepartment}
+                onChange={handleInputChange}
+                className="form-select mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+              >
+                <option value="">Select Department</option>
+                <option value="Finance">Finance</option>
+                <option value="Marketing">Marketing</option>
+                <option value="OperationsManagement">
+                  Operations Management
+                </option>
+                <option value="HumanResources">Human Resources</option>
+                <option value="InformationTechnology">
+                  Information Technology
+                </option>
+              </select>
+            </div>
+
+            <div className="mb-4">
+              <label className="block text-sm font-bold text-gray-700">
+                Item Handover Date :
+              </label>
+              <input
+                type="date"
+                name="itemHandoverDate"
+                value={editedData.itemHandoverDate}
+                onChange={handleInputChange}
+                className="form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+              />
+            </div>
 
             <div className="flex items-center justify-between">
               <button type="submit" className="btn btn-outline btn-success">

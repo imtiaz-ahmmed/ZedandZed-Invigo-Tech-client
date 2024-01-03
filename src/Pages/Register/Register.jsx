@@ -71,7 +71,7 @@ const Register = () => {
               inventory management solution.
             </p>
           </div>
-          <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+          <div className="card flex-shrink-0 w-full max-w-md shadow-2xl bg-base-100">
             <form onSubmit={handleSubmit(onSubmit)} className="card-body">
               <div className="form-control">
                 <label className="label">
@@ -184,7 +184,7 @@ const Register = () => {
                   required
                 />
                 <span
-                  className="absolute mt-14 ms-48 md:ms-72 cursor-pointer"
+                  className="absolute mt-14 ms-48 md:ms-80 cursor-pointer"
                   onClick={() => setPasswordVisible(!passwordVisible)}
                 >
                   {passwordVisible ? <RiEyeCloseFill /> : <FaEye />}

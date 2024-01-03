@@ -62,6 +62,7 @@ const AddInventory = () => {
       employeeName: data.employeeName,
       employeeId: data.employeeId,
       employeeDepartment: data.employeeDepartment,
+      itemHandoverDate: data.itemHandoverDate,
     };
 
     console.log(saveInventory);
@@ -385,7 +386,7 @@ const AddInventory = () => {
           <h4 className="text-center text-lg text-[#3070a2] font-bold border-b-2 border-t-2 mt-8 bg-slate-100 hover:bg-slate-50 p-2">
             User Section{" "}
           </h4>
-          <div className="grid md:grid-cols-3 gap-5">
+          <div className="grid md:grid-cols-4 gap-5">
             <div className="form-control ">
               <label className="label">
                 <span className="label-text">
@@ -440,6 +441,22 @@ const AddInventory = () => {
                   Information Technology
                 </option>
               </select>
+            </div>
+            <div className="form-control ">
+              <label className="label">
+                <span className="label-text">
+                  Item Handover Date
+                  <span className="md:text-lg text-red-500"> *</span>
+                </span>
+              </label>
+              <input
+                {...register("itemHandoverDate")}
+                type="date"
+                name="itemHandoverDate"
+                placeholder="item handover date"
+                className="input input-bordered input-info"
+                required
+              />
             </div>
           </div>
 
