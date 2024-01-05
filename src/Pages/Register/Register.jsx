@@ -26,7 +26,7 @@ const Register = () => {
         role: data.role,
         department: data.department,
       };
-      fetch("http://localhost:5000/users", {
+      fetch("https://zedand-zed-invigo-tech-server.vercel.app/users", {
         method: "POST",
         headers: {
           "content-type": "application/json",

@@ -67,7 +67,7 @@ const AddInventory = () => {
 
     console.log(saveInventory);
 
-    fetch("http://localhost:5000/add-inventory", {
+    fetch("https://zedand-zed-invigo-tech-server.vercel.app/add-inventory", {
       method: "POST",
       headers: {
         "content-type": "application/json",

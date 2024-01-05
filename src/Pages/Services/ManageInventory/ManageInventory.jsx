@@ -16,7 +16,7 @@ const ManageInventory = () => {
   const [filteredInventory, setFilteredInventory] = useState([]);
 
   const fetchData = () => {
-    fetch("http://localhost:5000/inventory")
+    fetch("https://zedand-zed-invigo-tech-server.vercel.app/inventory")
       .then((res) => res.json())
       .then((data) => {
         setAllInventory(data);
@@ -25,13 +25,16 @@ const ManageInventory = () => {
   };
 
   const updateInventory = (inventoryId, updatedData) => {
-    fetch(`http://localhost:5000/inventory/${inventoryId}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(updatedData),
-    })
+    fetch(
+      `https://zedand-zed-invigo-tech-server.vercel.app/inventory/${inventoryId}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedData),
+      }
+    )
       .then((res) => res.json())
       .then(() => {
         fetchData();
@@ -61,9 +64,12 @@ const ManageInventory = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/inventory/${inventoryId}`, {
-          method: "DELETE",
-        })
+        fetch(
+          `https://zedand-zed-invigo-tech-server.vercel.app/inventory/${inventoryId}`,
+          {
+            method: "DELETE",
+          }
+        )
           .then((res) => res.json())
           .then(() => {
             setAllInventory((prevInventory) =>
